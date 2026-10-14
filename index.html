@@ -135,7 +135,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 /* marchi su tutti i frame: ANCI in alto a destra, monogramma OE in basso a sinistra */
 .anci{position:absolute;right:5cqw;top:4cqw;width:9cqw;height:auto;z-index:2;display:block}
 .light .anci,.s12 .anci{filter:invert(1)}
-.deep .anci,.deep .foot img{filter:drop-shadow(0 0 .8cqw rgba(0,0,0,.55))}
+.deep .anci{filter:drop-shadow(0 0 .8cqw rgba(0,0,0,.55))}
 .s12 .anci{filter:invert(1)}
 .foot{position:absolute;left:5cqw;bottom:4cqw;display:flex;align-items:center;gap:2cqw;z-index:2}
 .foot img{height:3.4cqw;width:auto;display:block}
@@ -244,7 +244,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .cards{position:absolute;left:5cqw;right:5cqw;top:9cqw;bottom:9.4cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;align-items:stretch}
 .pcol{display:flex;flex-direction:column;gap:1.4cqw}
 .pcol .card{flex:1}
-.ind{border-top:2px solid var(--lime-400);padding-top:1cqw;display:flex;flex-direction:column;gap:.6cqw}
+.ind{border-top:2px solid var(--lime-400);padding-top:1cqw;display:flex;flex-direction:column;gap:.6cqw;height:5.4cqw;flex:none}
 .ind .pk{font-family:var(--mono);font-size:1.2cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
 .ind ul{list-style:none;display:flex;flex-direction:column;gap:.4cqw}
 .ind li{font-size:1.2cqw;line-height:1.3;color:var(--white)}
@@ -669,7 +669,7 @@ footer .fine{
                   <h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4>
                   <ol><li><b>1.1</b>Percorso ITS in produzione e controllo qualità farmaceutico</li><li><b>1.2</b>Corso di laurea in tecnologie chimico-farmaceutiche</li><li><b>1.3</b>Tirocini retribuiti e percorsi di rientro</li></ol>
                 </div>
-                <div class="ind"><p class="pk">Indicatori</p><ul><li>Partecipanti ai percorsi ITS e ai tirocini, per genere e competenze STEM</li><li>Curricula e corsi di laurea attivati</li></ul></div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Indicatore a, b, c</li></ul></div>
               </div>
               <div class="pcol a-in" style="--d:12.6s">
                 <div class="card">
@@ -677,7 +677,7 @@ footer .fine{
                   <h4>Rafforzare le reti di imprese e fornitori</h4>
                   <ol><li><b>2.1</b>Mappatura di profili e fornitori</li><li><b>2.2</b>Rete dei produttori della Pump Valley</li><li><b>2.3</b>Efficienza energetica sui siti produttivi</li></ol>
                 </div>
-                <div class="ind"><p class="pk">Indicatori</p><ul><li>Imprese sostenute, per dimensione</li><li>Risparmio energetico in MWh</li></ul></div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Indicatore d, e, f</li></ul></div>
               </div>
               <div class="pcol a-in" style="--d:16.8s">
                 <div class="card">
@@ -685,7 +685,7 @@ footer .fine{
                   <h4>Diversificare a partire dalle competenze esistenti</h4>
                   <ol><li><b>3.1</b>Individuazione delle filiere affini</li><li><b>3.2</b>Progetti pilota di diversificazione</li></ol>
                 </div>
-                <div class="ind"><p class="pk">Indicatori</p><ul><li>Imprese sostenute nelle filiere affini, per dimensione</li></ul></div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Indicatore x, y, z</li></ul></div>
               </div>
             </div>
           </div>
@@ -694,10 +694,10 @@ footer .fine{
         <div class="info">
           <p class="idx">Scena 11 · Tre priorità, otto azioni <span class="chip">Motion graphic</span> <span class="chip g">Aggiornata</span> <span class="chip w">Durata da rivedere</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>«3 priorità · 8 azioni», poi le tre card del minisito ridisegnate, una per volta, affiancate. Sotto ogni card, ben visibili, gli indicatori della priorità.</dd></div>
+            <div><dt>On-screen</dt><dd>«3 priorità · 8 azioni», poi le tre card del minisito ridisegnate, una per volta, affiancate. Le tre card hanno la stessa altezza; sotto ognuna, ben visibili, gli indicatori della priorità.</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Con questa logica lo studio ha identificato tre priorità, articolate in otto azioni, ciascuna con obiettivi misurabili collegati alle linee di intervento finanziario. Priorità 1. Formazione tecnica e universitaria per il comparto chimico e farmaceutico. Priorità 2. Rafforzamento delle reti di imprese e di fornitori. Priorità 3. Diversificazione delle attività a partire dalle competenze esistenti.</dd></div>
             <div><dt>Regia</dt><dd class="prompt">Ogni card entra da destra con i suoi indicatori quando la voce dice «Priorità 1, 2, 3» e resta in campo: alla fine sono tutte e tre affiancate.</dd></div>
-            <div><dt>Indicatori</dt><dd class="prompt">Sintesi degli indicatori di realizzazione delle azioni nel quadro logico del minisito: 1.1 e 1.3 partecipanti (per genere, competenze STEM, età), 1.2 curricula e corsi attuati; 2.1, 2.2 imprese beneficiarie per dimensione, 2.3 risparmio energetico in MWh; 3.1, 3.2 imprese beneficiarie per dimensione.</dd></div>
+            <div><dt>Indicatori</dt><dd class="prompt">Testo segnaposto del feedback: «Indicatore a, b, c», «Indicatore d, e, f», «Indicatore x, y, z». Per chi li sostituisce, gli indicatori di realizzazione del quadro logico sono: 1.1 e 1.3 partecipanti (per genere, competenze STEM, età), 1.2 curricula e corsi attuati; 2.1, 2.2 imprese beneficiarie per dimensione, 2.3 risparmio energetico in MWh; 3.1, 3.2 imprese beneficiarie per dimensione.</dd></div>
             <div><dt>Nota</dt><dd class="note">Le quattro battute sommano circa 55 parole su 12 secondi: servono circa <mark>22 secondi</mark>. L'animazione qui è già tarata su 22.</dd></div>
           </dl>
         </div>
