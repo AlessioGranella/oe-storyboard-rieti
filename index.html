@@ -105,7 +105,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
   text-transform:uppercase;color:var(--lime-400);background:rgba(0,0,0,.55);padding:.35cqw .7cqw;
 }
 .replay{
-  position:absolute;right:2.4cqw;top:2cqw;z-index:4;
+  position:absolute;right:2.4cqw;bottom:2cqw;z-index:4;
   font-family:var(--mono);font-size:1.1cqw;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   color:var(--white);background:rgba(0,0,0,.55);padding:.35cqw .7cqw;opacity:0;transition:opacity .2s;
 }
@@ -128,10 +128,19 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .shade{position:absolute;inset:0;background:radial-gradient(ellipse 75% 70% at 0% 100%,rgba(0,0,0,.62) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,0) 75%)}
 .shade.b{background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.25) 35%,rgba(0,0,0,0) 60%)}
 /* blocco titoli in basso a sinistra: pad 5cqw, base 4,6cqw, larghezza max 55cqw */
-.tblock{position:absolute;left:5cqw;bottom:4.6cqw;max-width:55cqw;display:flex;flex-direction:column}
+.tblock{position:absolute;left:5cqw;bottom:10cqw;max-width:55cqw;display:flex;flex-direction:column}
 .tblock .k{margin-bottom:2cqw}
 .tblock .num + .cap,.tblock .num + .hl{margin-top:1.6cqw}
 .on-photo{text-shadow:0 0 2.2cqw rgba(0,0,0,.45)}
+/* marchi su tutti i frame: ANCI in alto a destra, monogramma OE in basso a sinistra */
+.anci{position:absolute;right:5cqw;top:4cqw;width:9cqw;height:auto;z-index:2;display:block}
+.light .anci,.s12 .anci{filter:invert(1)}
+.deep .anci,.deep .foot img{filter:drop-shadow(0 0 .8cqw rgba(0,0,0,.55))}
+.s12 .anci{filter:invert(1)}
+.foot{position:absolute;left:5cqw;bottom:4cqw;display:flex;align-items:center;gap:2cqw;z-index:2}
+.foot img{height:3.4cqw;width:auto;display:block}
+.foot .src{font-family:var(--mono);font-size:1.3cqw;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.74)}
+.light .foot .src{color:var(--gray-700)}
 /* il mono dà cassa piena a punto e virgola: stretta come in burn_titles.py (−0,42em) */
 .num .sep{margin:0 -.21em}
 /* Hedvig: la legatura ff non è nel taglio 18pt e lascia un buco */
@@ -171,35 +180,35 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .frame:not(.play) .a-draw{stroke-dashoffset:0}
 
 /* ── Scena 1 ── */
-.s1 .tblock{max-width:80cqw}
-.s1 .logo{position:absolute;left:5cqw;top:6.4cqw;width:15cqw;height:auto;display:block}
+.s1 .tblock{max-width:80cqw;top:50%;bottom:auto;transform:translateY(-50%)}
 .s1 .hl{font-size:4.9cqw}
 .s1 .line1{color:rgba(255,255,255,.74)}
-.s1 .big{position:absolute;right:-1.5cqw;bottom:-3.5cqw;font-family:var(--serif);font-size:30cqw;line-height:1;color:rgba(255,255,255,.06);letter-spacing:-.04em;pointer-events:none}
+.s1 .big{position:absolute;right:-1.5cqw;bottom:-3.5cqw;font-family:var(--serif);font-size:26cqw;white-space:nowrap;line-height:1;color:rgba(255,255,255,.06);letter-spacing:-.04em;pointer-events:none}
 
 /* ── Scena 2 ── */
-.s2 .photo{filter:blur(.55cqw) saturate(.9)}
-.s2 .tint{position:absolute;inset:0;background:var(--bluette-900);mix-blend-mode:multiply;opacity:.35}
+/* scena 2: drone nitido, nessuna velatura */
 
 /* ── Scena 3 ── */
 .s3 svg.prov{position:absolute;right:6cqw;top:7cqw;height:76%;overflow:visible}
-.s3 .nums{position:absolute;left:5cqw;bottom:4.6cqw;display:flex;flex-direction:column;gap:3.6cqw}
+.s3 .nums{position:absolute;left:5cqw;bottom:10cqw;display:flex;flex-direction:column;gap:3.6cqw}
 .s3 .num{font-size:11cqw}
 .s3 .cap{margin-top:1.2cqw}
 
 /* ── Scena 4 ── */
-.s4 .maps{position:absolute;inset:7cqw 5cqw 4.5cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
+.s4 .maps{position:absolute;inset:7.5cqw 5cqw 9.5cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
 .s4 .m{display:flex;flex-direction:column;gap:1cqw;min-width:0}
-.s4 svg{width:100%;height:auto;overflow:visible}
+.s4 svg{height:30cqw;width:auto;max-width:100%;overflow:visible}
 .s4 .m .k{font-size:1.5cqw}
 .s4 .lg{display:flex;flex-wrap:wrap;gap:.5cqw 1.6cqw;font-family:var(--mono);font-size:1.05cqw;color:var(--gray-700);text-transform:uppercase;letter-spacing:.06em}
 .s4 .lg i{display:inline-block;width:1cqw;height:1cqw;border-radius:50%;margin-right:.5cqw;vertical-align:-.1cqw}
 
 /* ── Scena 5 ── */
-.s5 .sil{position:absolute;inset:9cqw 6cqw 5cqw;display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:3cqw;align-items:end}
+.s5 .sil{position:absolute;inset:9cqw 6cqw 10cqw;display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:3cqw;align-items:end}
 .s5 .col{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;min-width:0}
 .s5 svg{height:19cqw;width:auto;max-width:100%;overflow:visible}
-.s5 .col.hero svg{height:25cqw}
+.s5 .col.hero svg{height:22cqw}
+.s5 svg{max-height:17cqw}
+.s5 .col.hero svg{max-height:22cqw}
 .s5 .num{font-size:6cqw;color:var(--white)}
 .s5 .col.hero .num{font-size:8.6cqw;color:var(--lime-400)}
 .s5 .cap{font-size:2.5cqw}
@@ -212,52 +221,78 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .swap > div .num + .cap{margin-top:1.6cqw}
 
 /* ── Scena 7 ── */
-.s7 .stage{padding:6.5cqw 6cqw 4cqw}
+.s7 .stage{padding:8cqw 6cqw 10cqw;display:flex;flex-direction:column;justify-content:center}
 .s7 svg{width:100%;height:auto;display:block}
 
 /* ── Scena 9 ── */
-.chain{position:absolute;left:5cqw;right:5cqw;bottom:4.6cqw;display:flex;align-items:baseline;gap:1.8cqw;flex-wrap:nowrap}
+.chain{position:absolute;left:5cqw;right:5cqw;bottom:10cqw;display:flex;align-items:baseline;gap:1.8cqw;flex-wrap:nowrap}
 .chain span{font-family:var(--serif);font-size:4.3cqw;line-height:1.14}
 .chain .ar{font-family:var(--mono);font-weight:700;color:var(--lime-400);font-size:3.4cqw}
 
 /* ── Scena 10 ── */
-.s10 .stage{padding:6.4cqw 5cqw 4.6cqw;display:flex;flex-direction:column;gap:2.6cqw}
+.s10 .stage{padding:6.4cqw 5cqw 10cqw;display:flex;flex-direction:column;gap:2.6cqw}
 .s10 .hl{font-size:4.3cqw}
 .s10 .k{margin-bottom:1.2cqw}
-.blocks{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.6cqw;align-items:stretch;flex:1}
+.blocks{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.6cqw;align-items:stretch;flex:1;min-height:0}
 .blk{border:1px solid rgba(255,255,255,.55);padding:2.2cqw;display:flex;flex-direction:column;gap:1.4cqw}
 .blk .tag{align-self:flex-start;background:var(--lime-400);color:var(--black);font-family:var(--mono);font-size:1.25cqw;font-weight:700;letter-spacing:.12em;padding:.4cqw .8cqw}
-.blk .v{font-family:var(--serif);font-size:2.9cqw;line-height:1.14}
+.blk .v{font-family:var(--serif);font-size:2.4cqw;line-height:1.14}
 .blk .s{font-size:1.6cqw;line-height:1.35;color:rgba(255,255,255,.74);margin-top:auto}
 .arrow{align-self:center;width:3cqw}
 
 /* ── Scene 11–12: card ── */
-.cards{position:absolute;left:5cqw;right:5cqw;bottom:5cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
-.card{background:var(--white);color:var(--black);padding:2.2cqw 2.2cqw 2.4cqw;display:flex;flex-direction:column;gap:1.3cqw;min-height:26cqw}
+.cards{position:absolute;left:5cqw;right:5cqw;top:9cqw;bottom:9.4cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;align-items:stretch}
+.pcol{display:flex;flex-direction:column;gap:1.4cqw}
+.pcol .card{flex:1}
+.ind{border-top:2px solid var(--lime-400);padding-top:1cqw;display:flex;flex-direction:column;gap:.6cqw}
+.ind .pk{font-family:var(--mono);font-size:1.2cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
+.ind ul{list-style:none;display:flex;flex-direction:column;gap:.4cqw}
+.ind li{font-size:1.2cqw;line-height:1.3;color:var(--white)}
+.card{background:var(--white);color:var(--black);padding:1.8cqw 2cqw 2cqw;display:flex;flex-direction:column;gap:1cqw}
 .card .pk{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--bluette-700);font-weight:600}
-.card h4{font-family:var(--serif);font-weight:400;font-size:2.3cqw;line-height:1.14;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
-.card ol{list-style:none;display:flex;flex-direction:column;gap:.9cqw}
-.card li{display:grid;grid-template-columns:3.2cqw 1fr;font-size:1.45cqw;line-height:1.3;color:var(--gray-700)}
+.card h4{font-family:var(--serif);font-weight:400;font-size:1.75cqw;line-height:1.14;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
+.card ol{list-style:none;display:flex;flex-direction:column;gap:.5cqw}
+.card li{display:grid;grid-template-columns:3.2cqw 1fr;font-size:1.15cqw;line-height:1.3;color:var(--gray-700)}
 .card li b{font-family:var(--mono);font-weight:600;color:var(--bluette-700);font-size:1.2cqw}
-.s11 .intro{position:absolute;left:5cqw;bottom:4.6cqw;display:flex;flex-direction:column;gap:2.4cqw}
+.s11 .intro{position:absolute;left:5cqw;bottom:10cqw;display:flex;flex-direction:column;gap:2.4cqw}
 .s11 .intro .row{display:flex;align-items:baseline;gap:2.6cqw}
 .s11 .intro .num{font-size:11cqw}
 .s11 .intro .cap{font-size:6.2cqw}
-.s11 .head{position:absolute;left:5cqw;top:6.4cqw}
+.s11 .head{position:absolute;left:5cqw;top:4.6cqw}
 .s11 .head .hl{font-size:4.3cqw}
 .s11 .head .k{margin-bottom:1.2cqw}
-.s12 .cards{bottom:4cqw}
-.s12 .card{min-height:20cqw;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.45)}
-.s12 .card .pk{color:var(--bluette-100)}
-.s12 .card h4{border-bottom:0;padding-bottom:0}
-.goal{position:absolute;left:5cqw;right:5cqw;top:6cqw;background:var(--lime-400);color:var(--black);padding:2.2cqw 2.6cqw;display:flex;gap:2.4cqw;align-items:flex-start}
-.goal .pk{font-family:var(--mono);font-size:1.6cqw;letter-spacing:.14em;font-weight:700;text-transform:uppercase;padding-top:.6cqw;white-space:nowrap}
-.goal p{font-family:var(--serif);font-size:3.4cqw;line-height:1.14}
+/* ── Scena 12: screencast a tutto schermo ── */
+.s12 .clip{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
-/* ── Scena 13 ── */
-.s13 .stage{display:flex;flex-direction:column;justify-content:space-between;padding:6.4cqw 5cqw 4.6cqw}
-.s13 img{width:30cqw;height:auto;display:block}
-.s13 .hl{font-size:4.9cqw;max-width:22ch}
+/* ── Scena 13: dalle evidenze alle leve europee ── */
+.s13 .stage{background:var(--gray-100)}
+.levers{position:absolute;left:5cqw;right:5cqw;top:9.6cqw;bottom:9.4cqw;display:grid;grid-template-rows:auto repeat(5,1fr);gap:.45cqw}
+.lv.hd > div{padding:.2cqw 1.6cqw;background:none}
+.lv.hd .pk{color:var(--gray-700)}
+.lv{display:grid;grid-template-columns:1fr 3cqw 1.15fr;min-height:0;overflow:hidden}
+.lv > div{padding:.9cqw 1.6cqw;display:flex;flex-direction:column;justify-content:center;gap:.35cqw}
+.lv .ev{background:var(--white);color:var(--black)}
+.lv .ar{background:var(--bluette-900);color:var(--lime-400);align-items:center;padding:0;font-family:var(--mono);font-size:1.6cqw;font-weight:700}
+.lv .eu{background:var(--bluette-700);color:var(--white)}
+.lv .pk{font-family:var(--mono);font-size:1cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.lv .ev .pk{color:var(--bluette-700)}
+.lv .eu .pk{color:var(--bluette-100)}
+.lv p{font-size:1.4cqw;line-height:1.28}
+.s13 .k{position:absolute;left:5cqw;top:4.4cqw}
+
+/* ── Scena 14: obiettivo su foto ── */
+.s14 .tblock{max-width:70cqw}
+.s14 .cap{font-size:3.6cqw}
+.s14 .shade{background:radial-gradient(ellipse 85% 80% at 0% 100%,rgba(0,0,0,.72) 0%,rgba(0,0,0,.38) 50%,rgba(0,0,0,0) 80%)}
+
+/* ── Scena 15: domanda ── */
+.s15 .tblock{max-width:72cqw;top:50%;bottom:auto;transform:translateY(-50%)}
+.s15 .hl{font-size:4.9cqw}
+
+/* ── Scena 16: chiusura ── */
+.s16 .stage{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3.4cqw}
+.s16 img.logo{width:34cqw;height:auto;display:block}
+.s16 .hl{font-size:3.6cqw;text-align:center}
 
 /* ── Metadati sotto il frame ──────────────────────────────────────────── */
 .info{border-left:1px solid var(--black);padding:16px 0 0 16px;margin-top:16px}
@@ -339,10 +374,10 @@ footer .fine{
   <div class="wrap">
     <p class="eyebrow">OpenEconomics · Storyboard visivo · Bozza</p>
     <h1>Video analisi territoriale Rieti</h1>
-    <p class="sub">Dalla sceneggiatura v2 del 12 ottobre 2026 ai frame: dodici scene più una chiusura proposta. Mappe, grafico, numeri e card sono costruiti con i dati dell'analisi territoriale (ISTAT, Camera di Commercio, Excelsior); le foto servono da base per i clip.</p>
+    <p class="sub">Dalla sceneggiatura v2 del 12 ottobre 2026 ai frame, aggiornati con il feedback del 14 ottobre: sedici scene. Mappe, grafico, numeri e card sono costruiti con i dati dell'analisi territoriale (ISTAT, Camera di Commercio, Excelsior); le foto servono da base per i clip.</p>
     <dl class="meta">
-      <div><dt>Durata in sceneggiatura</dt><dd>2:44</dd></div>
-      <div><dt>Durata stimata</dt><dd>circa 2:55</dd></div>
+      <div><dt>Durata in sceneggiatura v2</dt><dd>2:44</dd></div>
+      <div><dt>Durata stimata</dt><dd>circa 3:33</dd></div>
       <div><dt>Formato</dt><dd>Orizzontale 16:9</dd></div>
       <div><dt>Lingua</dt><dd>Italiano</dd></div>
       <div><dt>Voiceover</dt><dd>Da scegliere</dd></div>
@@ -370,22 +405,21 @@ footer .fine{
       <article class="beat">
         <div class="frame s1" data-dur="11" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
           <div class="stage">
-            <span class="big a-fade" style="--d:.2s" aria-hidden="true">2028</span>
-            <img class="logo a-fade" style="--d:0s" src="assets/logo-white.svg" alt="OpenEconomics">
+            <span class="big a-fade" style="--d:.2s" aria-hidden="true">28–34</span>
             <div class="tblock">
               <p class="k a-up" style="--d:.3s">Programmazione europea 2028–2034</p>
               <p class="hl line1 a-up" style="--d:.9s">Dalla rendicontazione dei costi</p>
               <p class="hl line2 a-up" style="--d:4.2s">alla misurazione degli obiettivi raggiunti</p>
             </div>
           </div>
-          <span class="tc">Sc. 1 · 0:00 – 0:11</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 1 · 0:00 – 0:11</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 01 · Il cambio di regole <span class="chip">Motion graphic</span></p>
+          <p class="idx">Scena 01 · Il cambio di regole <span class="chip">Motion graphic</span> <span class="chip g">Aggiornata</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>Logo OpenEconomics bianco in alto a sinistra · Programmazione europea 2028–2034 · «Dalla rendicontazione dei costi» → «alla misurazione degli obiettivi raggiunti»</dd></div>
+            <div><dt>On-screen</dt><dd>Programmazione europea 2028–2034 · «Dalla rendicontazione dei costi» → «alla misurazione degli obiettivi raggiunti» · testo centrato in verticale</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Dal 2028 i fondi europei cambieranno logica. La proposta della Commissione europea prevede il passaggio da un sistema basato sui progetti a un modello orientato ai risultati e alla performance.</dd></div>
-            <div><dt>Regia</dt><dd class="prompt">Fondo Bluette pieno. Il pretitolo entra su «dal 2028»; la prima riga sale subito, la seconda arriva su «modello orientato ai risultati». «2028» in filigrana, quasi invisibile, dà profondità senza diventare un elemento.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Fondo Bluette pieno. Il pretitolo entra su «dal 2028»; la prima riga sale subito, la seconda arriva su «modello orientato ai risultati». «28–34» in filigrana, quasi invisibile, dà profondità senza diventare un elemento.</dd></div>
           </dl>
         </div>
       </article>
@@ -394,17 +428,17 @@ footer .fine{
       <article class="beat">
         <div class="frame s2 deep" data-dur="9" tabindex="0" role="button" aria-label="Scena 2, rivedi animazione">
           <div class="stage">
-            <img class="photo a-kbL" style="--kb:9s" src="assets/frames/02-rieti-veduta.jpg" alt="La piana reatina vista dalle colline di Rieti, sfocata">
-            <div class="tint"></div>
+            <video class="photo clip" src="assets/clips/02-rieti-drone.mp4" poster="assets/frames/02-rieti-drone.jpg" muted loop playsinline preload="none" aria-label="Volo di drone sul centro di Rieti e sul fiume Velino"></video>
           </div>
-          <span class="tc">Sc. 2 · 0:11 – 0:20</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 2 · 0:11 – 0:20</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 02 · L'opportunità dei dati <span class="chip w">Foto reale</span></p>
+          <p class="idx">Scena 02 · L'opportunità dei dati <span class="chip w">Video Adobe Stock</span> <span class="chip g">Aggiornata</span></p>
           <dl>
             <div><dt>On-screen</dt><dd>Nessun testo: parla la voce.</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">In che modo i dati e l'analisi territoriale possono aiutare a programmare investimenti con obiettivi chiari e indicatori misurabili?</dd></div>
-            <div><dt>Visivo</dt><dd class="prompt">«Veduta di Rieti»: la piana reatina dalle colline, foto reale da Wikimedia Commons. Sfocata, velata di Bluette, carrello laterale lento. Alternativa in centro città: il Velino al Ponte Romano (stessa fonte).</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Ripresa da drone sul centro di Rieti, il Velino e la piana, con i monti sullo sfondo (Adobe Stock 474852561, secondi 4–13 di 49). Il movimento di camera è quello del volo: niente sfocatura, la città deve riconoscersi.</dd></div>
+            <div><dt>Nota</dt><dd class="note">La foto del giardino con il campanile che era nel feedback resta disponibile in <code>assets/frames/alternative/</code>: si può usare qui al posto del drone, con un movimento di camera in montaggio.</dd></div>
           </dl>
         </div>
       </article>
@@ -419,7 +453,7 @@ footer .fine{
               <div class="a-up" style="--d:2.4s"><p class="num count" data-to="149766" data-d="2.4" data-t="1.6">149<span class="sep">.</span>766</p><p class="cap">abitanti</p></div>
             </div>
           </div>
-          <span class="tc">Sc. 3 · 0:20 – 0:27</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 3 · 0:20 – 0:27</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
           <p class="idx">Scena 03 · Il territorio: Rieti <span class="chip">Dati reali</span></p>
@@ -449,7 +483,7 @@ footer .fine{
               </div>
             </div>
           </div>
-          <span class="tc">Sc. 4 · 0:27 – 0:41</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-black.svg" alt="OpenEconomics"></div><span class="tc">Sc. 4 · 0:27 – 0:41</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
           <p class="idx">Scena 04 · Spopolamento e pendolarismo <span class="chip">Dati reali</span> <span class="chip g">Da allineare</span></p>
@@ -473,15 +507,15 @@ footer .fine{
               <div class="col a-up" style="--d:6.5s"><svg id="silI" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="9.1" data-dec="1" data-d="7" data-t="1">9<span class="sep">,</span>1</span>%</p><p class="cap">Italia, 2024</p></div>
             </div>
           </div>
-          <span class="tc">Sc. 5 · 0:41 – 0:56</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 5 · 0:41 – 0:56</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 05 · Il paradosso dell'export <span class="chip">Dati reali</span> <span class="chip w">Da verificare</span></p>
+          <p class="idx">Scena 05 · Il paradosso dell'export <span class="chip">Dati reali</span> <span class="chip g">Voce aggiornata</span> <span class="chip w">Da verificare</span></p>
           <dl>
             <div><dt>On-screen</dt><dd>80% Rieti · 48% Lazio · 9,1% Italia — quota della farmaceutica sull'export</dd></div>
-            <div><dt>Voiceover</dt><dd class="vo">In particolare, la provincia di Rieti vanta un ottanta per cento dell'export derivante dal settore farmaceutico ma la produzione è concentrata in pochissime imprese.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">In particolare, nella provincia di Rieti, il settore farmaceutico rappresenta l'80% delle esportazioni complessive e la produzione è concentrata in un numero ristrettissimo di imprese.</dd></div>
             <div><dt>Regia</dt><dd class="prompt">Tre sagome a scala diversa, Rieti in primo piano. Ognuna si riempie di Lime dal basso: la superficie colorata è proporzionale alla quota (80%, 48%, 9,1%), non solo l'altezza.</dd></div>
-            <div><dt>Nota</dt><dd class="note">In sceneggiatura il terzo numero è etichettato «Lazio»: è il dato <mark>Italia</mark>. Le basi sono diverse: Rieti 2025 sull'export totale, Lazio e Italia 2024 sull'export manifatturiero (Farmindustria). Il minisito parla di «poche imprese», la voce di «pochissime». Resta aperto il «verificare con Fede».</dd></div>
+            <div><dt>Nota</dt><dd class="note">In sceneggiatura il terzo numero è etichettato «Lazio»: è il dato <mark>Italia</mark>. Le basi sono diverse: Rieti 2025 sull'export totale, Lazio e Italia 2024 sull'export manifatturiero (Farmindustria). Resta aperto il «verificare con Fede».</dd></div>
           </dl>
         </div>
       </article>
@@ -498,13 +532,13 @@ footer .fine{
               <p class="cap a-up" style="--d:10s">rispetto alla media italiana</p>
             </div>
           </div>
-          <span class="tc">Sc. 6 · 0:56 – 1:13</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 6 · 0:56 – 1:13</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 06 · L'export non basta <span class="chip g">Video AI</span> <span class="chip">Numero proposto</span></p>
+          <p class="idx">Scena 06 · L'export non basta <span class="chip g">Video AI</span> <span class="chip g">Voce aggiornata</span></p>
           <dl>
             <div><dt>On-screen</dt><dd>Proposta: −27% · valore aggiunto per abitante rispetto alla media italiana (24.245 € contro 33.348 €)</dd></div>
-            <div><dt>Voiceover</dt><dd class="vo">Questa concentrazione settoriale aumenta il rischio economico della regione. Il valore dell'export, essendo così concentrato, non si traduce in un valore aggiunto procapite altrettanto alto. Il valore aggiunto per abitante resta il ventisette per cento, sotto la media italiana.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Questa concentrazione settoriale aumenta il rischio economico della provincia. Il valore dell'export, essendo così concentrato, non si traduce in un valore aggiunto procapite altrettanto alto. Il valore aggiunto per abitante è del ventisette per cento al di sotto della media italiana.</dd></div>
             <div><dt>Prompt</dt><dd class="prompt">Due tecnici in tuta da camera bianca, cuffia e mascherina, ispezionano fiale su una linea di riempimento in acciaio. Luce calda sulle persone, macchinari sullo sfondo sfocati in viola e indaco. Movimento: lento push-in verso le fiale.</dd></div>
             <div><dt>Nota</dt><dd class="note">La sceneggiatura prevede solo immagini; il numero entra quando la voce dice «ventisette per cento», così il dato si vede.</dd></div>
           </dl>
@@ -515,15 +549,15 @@ footer .fine{
       <article class="beat">
         <div class="frame s7 light" data-dur="20" tabindex="0" role="button" aria-label="Scena 7, rivedi animazione">
           <div class="stage">
-            <p class="k a-up" style="--d:.2s;margin-bottom:2cqw">Entrate previste nel 2025 di difficile reperimento</p>
+            <p class="k a-up" style="--d:.2s;margin-bottom:2.4cqw">Profili più difficili da reperire</p>
             <svg id="s7chart" viewBox="0 0 1600 520" aria-hidden="true"></svg>
           </div>
-          <span class="tc">Sc. 7 · 1:13 – 1:33</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-black.svg" alt="OpenEconomics"><span class="src">Fonte: Unioncamere</span></div><span class="tc">Sc. 7 · 1:13 – 1:33</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 07 · Le competenze che mancano <span class="chip">Dati reali</span></p>
+          <p class="idx">Scena 07 · Le competenze che mancano <span class="chip">Dati reali</span> <span class="chip g">Aggiornata</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>Grafico 4 dell'analisi (Excelsior 2025), senza titolo né fonte: dieci profili, percentuale di difficile reperimento.</dd></div>
+            <div><dt>On-screen</dt><dd>Titolo «Profili più difficili da reperire» · Grafico 4 dell'analisi (Excelsior 2025) centrato in verticale: dieci profili, percentuale di difficile reperimento · «Fonte: Unioncamere» in basso a sinistra, accanto al monogramma.</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Ma soprattutto – ed è questo il paradosso per un polo di eccellenza industriale – mancano le competenze. I professionisti specializzati in chimica e farmaceutica sono tra i più difficili da reperire.</dd></div>
             <div><dt>Regia</dt><dd class="prompt">Le barre crescono tutte insieme in grigio; su «chimica e farmaceutica» si accendono in Bluette, una alla volta, i tre profili del comparto (98%, 84%, 65%). Meccanica e altri profili restano grigi: la voce non li cita.</dd></div>
             <div><dt>Nota</dt><dd class="note">La nota del PPTX evidenzia solo «Laureati in chimica e farmaceutica»; quella del PDF i primi tre. Ho seguito il PDF.</dd></div>
@@ -546,17 +580,17 @@ footer .fine{
                 </div>
                 <div class="a-up" style="--d:7.2s">
                   <p class="num"><span class="count" data-to="12" data-d="7.2" data-t="1">12</span>%</p>
-                  <p class="cap">degli universitari reatini studia in provincia</p>
+                  <p class="cap">percentuale degli universitari reatini che studiano in provincia</p>
                 </div>
               </div>
             </div>
           </div>
-          <span class="tc">Sc. 8 · 1:33 – 1:46</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 8 · 1:33 – 1:46</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
           <p class="idx">Scena 08 · Mancano i percorsi di formazione <span class="chip g">Video AI</span> <span class="chip">Dati reali</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>0 corsi universitari o ITS in chimica, farmacia, biotecnologie → 12% degli universitari reatini studia in provincia</dd></div>
+            <div><dt>On-screen</dt><dd>0 corsi universitari o ITS in chimica, farmacia, biotecnologie → 12% · percentuale degli universitari reatini che studiano in provincia</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">A Rieti non esistono corsi universitari specialistici o ITS in questi ambiti. Solo il dodici per cento degli universitari reatini studia a Rieti.</dd></div>
             <div><dt>Prompt</dt><dd class="prompt">Tre studenti universitari in un laboratorio didattico di chimica: una studentessa con occhiali di sicurezza pipetta in una provetta, i compagni prendono appunti. Luce calda sui volti, laboratorio sfocato in viola. Movimento: carrello laterale lento.</dd></div>
             <div><dt>Nota</dt><dd class="note">Il dato dell'analisi è «studia <mark>in provincia</mark>», la voce dice «a Rieti». Proposta: «…studia in provincia».</dd></div>
@@ -577,7 +611,7 @@ footer .fine{
               <span class="a-up" style="--d:9.6s">Indicatori</span>
             </div>
           </div>
-          <span class="tc">Sc. 9 · 1:46 – 1:59</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 9 · 1:46 – 1:59</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
           <p class="idx">Scena 09 · Dal dato all'azione <span class="chip g">Video AI</span> <span class="chip">Testo proposto</span></p>
@@ -591,29 +625,29 @@ footer .fine{
 
       <!-- 10 ────────────────────────────────────────────────────────── -->
       <article class="beat">
-        <div class="frame s10" data-dur="19" tabindex="0" role="button" aria-label="Scena 10, rivedi animazione">
+        <div class="frame s10" data-dur="20" tabindex="0" role="button" aria-label="Scena 10, rivedi animazione">
           <div class="stage">
             <div>
-              <p class="k a-up" style="--d:.2s">Esempio · Azione 1.1</p>
+              <p class="k a-up" style="--d:.2s">Esempio</p>
               <p class="hl a-up" style="--d:.5s">Dal dato all'indicatore</p>
             </div>
             <div class="blocks">
-              <div class="blk a-up" style="--d:1.6s"><span class="tag">Dato</span><p class="v">Zero percorsi in chimica e farmaceutica a Rieti</p><p class="s">Mancano le competenze che il comparto cerca</p></div>
-              <svg class="arrow a-fade" style="--d:5s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
-              <div class="blk a-up" style="--d:5.4s"><span class="tag">Obiettivo</span><p class="v">Percorso ITS in produzione e controllo qualità farmaceutico</p><p class="s">Dalla programmazione 2027</p></div>
-              <svg class="arrow a-fade" style="--d:12.4s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
-              <div class="blk a-up" style="--d:12.8s"><span class="tag">Indicatore</span><p class="v">Numero di partecipanti</p><p class="s">Per genere e settore di competenze, STEM incluse</p></div>
+              <div class="blk a-up" style="--d:1.6s"><span class="tag">Dato</span><p class="v">Carenza di competenze in chimica e farmaceutica a Rieti</p><p class="s">Mancano i profili specialistici di cui il comparto necessita</p></div>
+              <svg class="arrow a-fade" style="--d:6s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
+              <div class="blk a-up" style="--d:6.4s"><span class="tag">Obiettivo</span><p class="v">Percorso ITS in produzione e controllo qualità farmaceutico</p><p class="s">Laureati, tecnici, specialisti</p></div>
+              <svg class="arrow a-fade" style="--d:13.4s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
+              <div class="blk a-up" style="--d:13.8s"><span class="tag">Indicatore</span><p class="v">Numero di partecipanti per genere e settore, STEM incluse</p><p class="s">Raccordo con gli obiettivi della programmazione 2028–2034</p></div>
             </div>
           </div>
-          <span class="tc">Sc. 10 · 1:59 – 2:18</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 10 · 1:59 – 2:19</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 10 · Dal dato all'azione: un esempio <span class="chip">Motion graphic</span> <span class="chip g">Testo in revisione</span></p>
+          <p class="idx">Scena 10 · Dal dato all'azione: un esempio <span class="chip">Motion graphic</span> <span class="chip g">Aggiornata</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>Tre blocchi in sequenza: Dato · Obiettivo · Indicatore, con i testi dell'azione 1.1 del minisito.</dd></div>
-            <div><dt>Voiceover</dt><dd class="vo">Facciamo un esempio. Se i dati evidenziano un problema di competenze in ambito chimico e farmaceutico, si può fissare come obiettivo un percorso ITS in produzione e controllo qualità farmaceutico. L'indicatore di performance può essere il numero di partecipanti al corso.</dd></div>
-            <div><dt>Regia</dt><dd class="prompt">Ogni blocco entra quando la voce lo nomina; le frecce Lime legano la sequenza. Bordi sottili bianchi, spigolo vivo.</dd></div>
-            <div><dt>Nota</dt><dd class="note">In sceneggiatura la voce è ancora in rosso (in revisione). Qui ho corretto «fisscare come» in «fissare come obiettivo un». L'indicatore segue il minisito: «per genere e per settore di competenze (comprese le STEM)», non «competenze scientifiche».</dd></div>
+            <div><dt>On-screen</dt><dd>Esempio · Dal dato all'indicatore · Dato: carenza di competenze in chimica e farmaceutica a Rieti · Obiettivo: percorso ITS in produzione e controllo qualità farmaceutico · Indicatore: numero di partecipanti per genere e settore, STEM incluse.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Facciamo un esempio concreto. Se i dati evidenziano una carenza di competenze nel settore chimico-farmaceutico, l'obiettivo può essere quello di attivare un percorso ITS dedicato alla produzione farmaceutica e al controllo qualità. Per misurarne l'attuazione, possiamo utilizzare come indicatore il numero di partecipanti al percorso.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Ogni blocco entra quando la voce lo nomina; le frecce Lime legano la sequenza. Con la voce nuova (48 parole) la scena passa da 19 a 20 secondi.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Nel feedback la riga sotto l'indicatore dice «programmazione <mark>2027-2024</mark>»: ho messo 2028–2034, da confermare.</dd></div>
           </dl>
         </div>
       </article>
@@ -627,33 +661,43 @@ footer .fine{
               <div class="row a-up" style="--d:.4s"><p class="num">3</p><p class="cap">priorità</p></div>
               <div class="row a-up" style="--d:1.6s"><p class="num">8</p><p class="cap">azioni</p></div>
             </div>
-            <div class="head a-fade" style="--d:7.6s"><p class="k">3 priorità · 8 azioni</p><p class="hl">Competenze, filiere, diversificazione</p></div>
+            <div class="head a-fade" style="--d:7.6s"><p class="k">3 priorità · 8 azioni</p></div>
             <div class="cards">
-              <div class="card a-in" style="--d:7.8s">
-                <p class="pk">Priorità 1</p>
-                <h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4>
-                <ol><li><b>1.1</b>Percorso ITS in produzione e controllo qualità farmaceutico</li><li><b>1.2</b>Corso di laurea in tecnologie chimico-farmaceutiche</li><li><b>1.3</b>Tirocini retribuiti e percorsi di rientro</li></ol>
+              <div class="pcol a-in" style="--d:7.8s">
+                <div class="card">
+                  <p class="pk">Priorità 1</p>
+                  <h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4>
+                  <ol><li><b>1.1</b>Percorso ITS in produzione e controllo qualità farmaceutico</li><li><b>1.2</b>Corso di laurea in tecnologie chimico-farmaceutiche</li><li><b>1.3</b>Tirocini retribuiti e percorsi di rientro</li></ol>
+                </div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Partecipanti ai percorsi ITS e ai tirocini, per genere e competenze STEM</li><li>Curricula e corsi di laurea attivati</li></ul></div>
               </div>
-              <div class="card a-in" style="--d:12.6s">
-                <p class="pk">Priorità 2</p>
-                <h4>Rafforzare le reti di imprese e fornitori</h4>
-                <ol><li><b>2.1</b>Mappatura di profili e fornitori</li><li><b>2.2</b>Rete dei produttori della Pump Valley</li><li><b>2.3</b>Efficienza energetica sui siti produttivi</li></ol>
+              <div class="pcol a-in" style="--d:12.6s">
+                <div class="card">
+                  <p class="pk">Priorità 2</p>
+                  <h4>Rafforzare le reti di imprese e fornitori</h4>
+                  <ol><li><b>2.1</b>Mappatura di profili e fornitori</li><li><b>2.2</b>Rete dei produttori della Pump Valley</li><li><b>2.3</b>Efficienza energetica sui siti produttivi</li></ol>
+                </div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Imprese sostenute, per dimensione</li><li>Risparmio energetico in MWh</li></ul></div>
               </div>
-              <div class="card a-in" style="--d:16.8s">
-                <p class="pk">Priorità 3</p>
-                <h4>Diversificare a partire dalle competenze esistenti</h4>
-                <ol><li><b>3.1</b>Individuazione delle filiere affini</li><li><b>3.2</b>Progetti pilota di diversificazione</li></ol>
+              <div class="pcol a-in" style="--d:16.8s">
+                <div class="card">
+                  <p class="pk">Priorità 3</p>
+                  <h4>Diversificare a partire dalle competenze esistenti</h4>
+                  <ol><li><b>3.1</b>Individuazione delle filiere affini</li><li><b>3.2</b>Progetti pilota di diversificazione</li></ol>
+                </div>
+                <div class="ind"><p class="pk">Indicatori</p><ul><li>Imprese sostenute nelle filiere affini, per dimensione</li></ul></div>
               </div>
             </div>
           </div>
-          <span class="tc">Sc. 11 · 2:18 – 2:30</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 11 · 2:19 – 2:41</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 11 · Tre priorità, otto azioni <span class="chip">Motion graphic</span> <span class="chip w">Durata da rivedere</span></p>
+          <p class="idx">Scena 11 · Tre priorità, otto azioni <span class="chip">Motion graphic</span> <span class="chip g">Aggiornata</span> <span class="chip w">Durata da rivedere</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>«3 priorità · 8 azioni», poi le tre card del minisito ridisegnate, una per volta, affiancate.</dd></div>
+            <div><dt>On-screen</dt><dd>«3 priorità · 8 azioni», poi le tre card del minisito ridisegnate, una per volta, affiancate. Sotto ogni card, ben visibili, gli indicatori della priorità.</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Con questa logica lo studio ha identificato tre priorità, articolate in otto azioni, ciascuna con obiettivi misurabili collegati alle linee di intervento finanziario. Priorità 1. Formazione tecnica e universitaria per il comparto chimico e farmaceutico. Priorità 2. Rafforzamento delle reti di imprese e di fornitori. Priorità 3. Diversificazione delle attività a partire dalle competenze esistenti.</dd></div>
-            <div><dt>Regia</dt><dd class="prompt">Ogni card entra da destra quando la voce dice «Priorità 1, 2, 3» e resta in campo: alla fine sono tutte e tre affiancate, pronte per la scena 12.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Ogni card entra da destra con i suoi indicatori quando la voce dice «Priorità 1, 2, 3» e resta in campo: alla fine sono tutte e tre affiancate.</dd></div>
+            <div><dt>Indicatori</dt><dd class="prompt">Sintesi degli indicatori di realizzazione delle azioni nel quadro logico del minisito: 1.1 e 1.3 partecipanti (per genere, competenze STEM, età), 1.2 curricula e corsi attuati; 2.1, 2.2 imprese beneficiarie per dimensione, 2.3 risparmio energetico in MWh; 3.1, 3.2 imprese beneficiarie per dimensione.</dd></div>
             <div><dt>Nota</dt><dd class="note">Le quattro battute sommano circa 55 parole su 12 secondi: servono circa <mark>22 secondi</mark>. L'animazione qui è già tarata su 22.</dd></div>
           </dl>
         </div>
@@ -661,48 +705,107 @@ footer .fine{
 
       <!-- 12 ────────────────────────────────────────────────────────── -->
       <article class="beat">
-        <div class="frame s12" data-dur="14" tabindex="0" role="button" aria-label="Scena 12, rivedi animazione">
+        <div class="frame s12 deep" data-dur="13" tabindex="0" role="button" aria-label="Scena 12, rivedi animazione">
           <div class="stage">
-            <div class="goal a-down" style="--d:.6s">
-              <span class="pk">Obiettivo</span>
-              <p>Trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e in un'economia più diversificata e resiliente.</p>
-            </div>
-            <div class="cards">
-              <div class="card"><p class="pk">Priorità 1</p><h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4></div>
-              <div class="card"><p class="pk">Priorità 2</p><h4>Rafforzare le reti di imprese e fornitori</h4></div>
-              <div class="card"><p class="pk">Priorità 3</p><h4>Diversificare a partire dalle competenze esistenti</h4></div>
-            </div>
+            <video class="clip" src="assets/clips/12-quadro-logico.mp4" poster="assets/frames/12-quadro-logico.jpg" muted loop playsinline preload="none" aria-label="Screencast del quadro logico delle azioni sul minisito"></video>
           </div>
-          <span class="tc">Sc. 12 · 2:30 – 2:44</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-black.svg" alt="OpenEconomics"></div><span class="tc">Sc. 12 · 2:41 – 2:54</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Scena 12 · L'obiettivo <span class="chip">Proposta visual</span></p>
+          <p class="idx">Scena 12 · Il quadro logico <span class="chip">Nuova</span> <span class="chip w">Screencast</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>La barra dell'obiettivo scende sopra le tre card, che si attenuano: la struttura «un obiettivo, tre priorità» si legge in un colpo d'occhio.</dd></div>
-            <div><dt>Voiceover</dt><dd class="vo">Tutto ispirato ad un unico obiettivo: trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e sostenere un'economia più diversificata e resiliente.</dd></div>
-            <div><dt>Regia</dt><dd class="prompt">In sceneggiatura c'era «Ale valuta tu». Ho seguito la nota del PPTX: «la barra dell'obiettivo compare nella scena successiva». La barra è Lime con testo nero, l'unico Lime pieno del video: è il punto d'arrivo.</dd></div>
+            <div><dt>On-screen</dt><dd>Screencast della tabella «Quadro logico delle azioni» a tutto schermo.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Le linee di intervento, le azioni e gli indicatori sono sintetizzati nel quadro logico, una proposta territoriale riconoscibile con fabbisogni documentati, interventi coerenti e risultati misurabili.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Lo screencast allegato (1920×1656) è ritagliato in 16:9 sulla parte centrale, senza barra del browser e senza dock: resta solo la tabella che scorre.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Nella registrazione si vede il puntatore del mouse. Per il montaggio finale conviene rifarla a 1920×1080, senza puntatore e con uno scorrimento più lento.</dd></div>
           </dl>
         </div>
       </article>
 
       <!-- 13 ────────────────────────────────────────────────────────── -->
       <article class="beat">
-        <div class="frame s13" data-dur="6" tabindex="0" role="button" aria-label="Chiusura, rivedi animazione">
+        <div class="frame s13 light" data-dur="12" tabindex="0" role="button" aria-label="Scena 13, rivedi animazione">
           <div class="stage">
-            <img class="a-fade" style="--d:.3s" src="assets/logo-white.svg" alt="OpenEconomics">
-            <div>
-              <p class="k a-up" style="--d:1s;margin-bottom:2cqw">Analisi territoriale · Provincia di Rieti</p>
-              <p class="hl a-up" style="--d:1.4s">Dal dato agli obiettivi della programmazione 2028–2034</p>
+            <p class="k a-up" style="--d:.2s">Dalle evidenze di Rieti alle priorità europee</p>
+            <div class="levers">
+              <div class="lv hd a-fade" style="--d:.4s"><div><p class="pk">Evidenza</p></div><div></div><div><p class="pk">Leva europea</p></div></div>
+              <div class="lv a-in" style="--d:.8s"><div class="ev"><p>Export concentrato per l'80% nella farmaceutica, Pump Valley senza rete comune</p></div><div class="ar">→</div><div class="eu"><p>Competitività e diversificazione delle imprese: servizi alle imprese e alle PMI, nuove priorità manifatturiere (campi d'intervento 63, 65 e 77)</p></div></div>
+              <div class="lv a-in" style="--d:2.4s"><div class="ev"><p>Nessun corso universitario o ITS in chimica e farmaceutica, profili tra i più difficili da reperire</p></div><div class="ar">→</div><div class="eu"><p>Istruzione professionale iniziale e istruzione terziaria (campi 115 e 114): percorsi ITS e universitari con tirocini nelle imprese</p></div></div>
+              <div class="lv a-in" style="--d:4s"><div class="ev"><p>Deflusso di giovani laureati e invecchiamento demografico</p></div><div class="ar">→</div><div class="eu"><p>Cambiamento demografico e competenze tra gli obiettivi del fondo; sostegno specifico all'occupazione giovanile (campo 443), con contributo sociale del 100%</p></div></div>
+              <div class="lv a-in" style="--d:5.6s"><div class="ev"><p>Elevati tempi di pendolarismo e declino demografico dei comuni montani</p></div><div class="ar">→</div><div class="eu"><p>Capitoli territoriali e nuovo obiettivo per le aree rurali: accesso all'occupazione e strategie territoriali integrate (campi 438 e 335)</p></div></div>
+              <div class="lv a-in" style="--d:7.2s"><div class="ev"><p>Elettricità quasi tutta rinnovabile ma fotovoltaico basso sui siti produttivi</p></div><div class="ar">→</div><div class="eu"><p>Almeno il 43% dei piani per clima e ambiente: efficienza energetica nelle imprese e fotovoltaico (campi 192 e 173)</p></div></div>
             </div>
           </div>
-          <span class="tc">Chiusura · 2:44 – 2:50</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-black.svg" alt="OpenEconomics"></div><span class="tc">Sc. 13 · 2:54 – 3:06</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Chiusura <span class="chip">Proposta</span></p>
+          <p class="idx">Scena 13 · Dalle evidenze alle leve europee <span class="chip">Nuova</span> <span class="chip">Dati reali</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>Logo OpenEconomics bianco su Bluette, titolo dello studio, una riga di sintesi.</dd></div>
+            <div><dt>On-screen</dt><dd>Tabella «Dalle evidenze di Rieti alle priorità europee» del minisito (pagina Europa 2028–2034), ridisegnata: cinque righe Evidenza → Leva europea.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Una preparazione progettuale così strutturata sarà decisiva per sostenere le richieste di finanziamento in linea con la programmazione 2028-2034.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Le righe entrano una alla volta da destra, ogni 1,6 secondi. I testi sono quelli del minisito, non un'immagine: restano nitidi in 1080p.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 14 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s14 deep" data-dur="14" tabindex="0" role="button" aria-label="Scena 14, rivedi animazione">
+          <div class="stage">
+            <img class="photo a-kb" style="--kb:14s" src="assets/frames/14-rieti-ponte.jpg" alt="Il ponte sul Velino nel centro di Rieti">
+            <div class="shade"></div>
+            <div class="tblock on-photo">
+              <p class="k a-up" style="--d:.6s">Obiettivo</p>
+              <p class="cap a-up" style="--d:1.2s">Trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e in un'economia più diversificata e resiliente.</p>
+            </div>
+          </div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 14 · 3:06 – 3:20</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 14 · L'obiettivo <span class="chip w">Foto Adobe Stock</span> <span class="chip g">Aggiornata</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Obiettivo · «Trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e in un'economia più diversificata e resiliente.» Le tre card sono state tolte.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Tutto questo, è ispirato ad un unico obiettivo: trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e sostenere un'economia più diversificata e resiliente.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Il ponte sul Velino nel centro di Rieti (Adobe Stock 38337409), animato con un lento push-in. L'obiettivo è scritto in Hedvig bianco in basso a sinistra, senza il riquadro Lime.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Nella voce c'è una virgola di troppo: «Tutto questo<mark>,</mark> è ispirato». Proposta: «Tutto questo è ispirato a un unico obiettivo».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 15 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s15" data-dur="7" tabindex="0" role="button" aria-label="Scena 15, rivedi animazione">
+          <div class="stage">
+            <div class="tblock">
+              <p class="hl a-up" style="--d:.4s">Quanti dei tuoi progetti oggi hanno un obiettivo e un indicatore, per potersi candidare ai nuovi fondi?</p>
+            </div>
+          </div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 15 · 3:20 – 3:27</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 15 · La domanda <span class="chip">Nuova</span> <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>«Quanti dei tuoi progetti oggi hanno un obiettivo e un indicatore, per potersi candidare ai nuovi fondi?» · testo bianco su Bluette 700, senza riquadro Lime.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Da definire: il feedback non indica una voce. Proposta: la voce legge la domanda.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 16 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s16" data-dur="6" tabindex="0" role="button" aria-label="Scena 16, rivedi animazione">
+          <div class="stage">
+            <img class="logo a-fade" style="--d:.3s" src="assets/logo-white.svg" alt="OpenEconomics">
+            <p class="hl a-up" style="--d:1.6s">We measure what really matters</p>
+          </div>
+          <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><span class="tc">Sc. 16 · 3:27 – 3:33</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 16 · Chiusura <span class="chip g">Aggiornata</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Logo OpenEconomics in dissolvenza al centro, poi il claim «We measure what really matters».</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Nessuno: musica in chiusura.</dd></div>
-            <div><dt>Nota</dt><dd class="note">Non è in sceneggiatura. L'ho aggiunta per coerenza con il video Audiovisivo, che chiude con la card di marca. Se il video vive dentro il minisito si può togliere.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Qui il monogramma in basso a sinistra non c'è: con il logo intero al centro sarebbe un doppione. Il logo ANCI resta.</dd></div>
           </dl>
         </div>
       </article>
@@ -713,8 +816,8 @@ footer .fine{
 
 <section class="review" aria-labelledby="rev-h">
   <div class="wrap">
-    <h2 id="rev-h">Revisione della sceneggiatura</h2>
-    <p class="lead">Cosa ho trovato confrontando la v2 con i dati del minisito, e il ritmo della voce scena per scena.</p>
+    <h2 id="rev-h">Feedback del 14 ottobre</h2>
+    <p class="lead">Cosa è cambiato rispetto alla prima versione, il ritmo della voce con i testi nuovi e i punti ancora da chiudere.</p>
     <div class="cols">
       <div>
         <h3 class="sec-h">Ritmo del voiceover</h3>
@@ -725,28 +828,46 @@ footer .fine{
             <tr><td>2 · L'opportunità dei dati</td><td class="n">9</td><td class="n">20</td><td class="n">2,2</td><td class="n">ok</td></tr>
             <tr><td>3 · Il territorio</td><td class="n">7</td><td class="n">14</td><td class="n">2,0</td><td class="n">ok</td></tr>
             <tr><td>4 · Spopolamento e pendolarismo</td><td class="n">14</td><td class="n">18</td><td class="n">1,3</td><td class="n">margine</td></tr>
-            <tr><td>5 · Il paradosso dell'export</td><td class="n">15</td><td class="n">25</td><td class="n">1,7</td><td class="n">ok</td></tr>
-            <tr><td>6 · L'export non basta</td><td class="n">17</td><td class="n">40</td><td class="n">2,4</td><td class="n">ok</td></tr>
+            <tr><td>5 · Il paradosso dell'export</td><td class="n">15</td><td class="n">26</td><td class="n">1,7</td><td class="n">ok</td></tr>
+            <tr><td>6 · L'export non basta</td><td class="n">17</td><td class="n">42</td><td class="n">2,5</td><td class="n">17–18 s</td></tr>
             <tr><td>7 · Le competenze che mancano</td><td class="n">20</td><td class="n">30</td><td class="n">1,5</td><td class="n">margine</td></tr>
             <tr><td>8 · Percorsi di formazione</td><td class="n">13</td><td class="n">23</td><td class="n">1,8</td><td class="n">ok</td></tr>
             <tr><td>9 · Dal dato all'azione</td><td class="n">13</td><td class="n">27</td><td class="n">2,1</td><td class="n">ok</td></tr>
-            <tr><td>10 · Un esempio</td><td class="n">19</td><td class="n">40</td><td class="n">2,1</td><td class="n">ok</td></tr>
-            <tr class="warn"><td>11 · Tre priorità, otto azioni</td><td class="n">12</td><td class="n">55</td><td class="n">4,6</td><td class="n">circa 22 s</td></tr>
-            <tr><td>12 · L'obiettivo</td><td class="n">14</td><td class="n">26</td><td class="n">1,9</td><td class="n">ok</td></tr>
+            <tr><td>10 · Un esempio</td><td class="n">20</td><td class="n">47</td><td class="n">2,4</td><td class="n">ok</td></tr>
+            <tr class="warn"><td>11 · Tre priorità, otto azioni</td><td class="n">22</td><td class="n">55</td><td class="n">2,5</td><td class="n">22 s</td></tr>
+            <tr><td>12 · Il quadro logico</td><td class="n">13</td><td class="n">26</td><td class="n">2,0</td><td class="n">ok</td></tr>
+            <tr><td>13 · Evidenze e leve europee</td><td class="n">12</td><td class="n">19</td><td class="n">1,6</td><td class="n">ok</td></tr>
+            <tr><td>14 · L'obiettivo</td><td class="n">14</td><td class="n">28</td><td class="n">2,0</td><td class="n">ok</td></tr>
+            <tr><td>15 · La domanda</td><td class="n">7</td><td class="n">17</td><td class="n">2,4</td><td class="n">se letta</td></tr>
+            <tr><td>16 · Chiusura</td><td class="n">6</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
           </tbody>
         </table>
-        <p class="tbl-note">Riferimento: 2,4 parole al secondo, ritmo di una voce istituzionale in italiano. La scena 11 chiede 10 secondi in più: si possono recuperare togliendone 4 alla scena 4 e 5 alla 7, che hanno margine, e il totale resta vicino a 2:45. Altrimenti il video arriva a circa 2:55.</p>
+        <p class="tbl-note">Riferimento: 2,4 parole al secondo. Con le quattro scene nuove il video arriva a circa <strong>3:33</strong>, contro i 2:44 della sceneggiatura v2. Si possono recuperare circa 9 secondi stringendo le scene 4 e 7, che hanno margine.</p>
       </div>
       <div>
-        <h3 class="sec-h">Correzioni al testo</h3>
+        <h3 class="sec-h">Applicato</h3>
         <ul class="fix">
-          <li><span class="w">Scena 1 · refuso</span>i fondi europei <del>cambianeranno</del> <ins>cambieranno</ins> logica</li>
-          <li><span class="w">Scena 5 · etichetta</span>«9,1% incidenza farmaceutica su export <del>Lazio</del>» → <ins>Italia</ins></li>
-          <li><span class="w">Scena 6 · territorio</span>il rischio economico <del>della regione</del> → <ins>della provincia</ins></li>
-          <li><span class="w">Scena 6 · sintassi</span>il valore aggiunto per abitante <del>resta il ventisette per cento, sotto la media italiana</del> → <ins>è inferiore del ventisette per cento alla media italiana</ins>; <del>procapite</del> → <ins>pro capite</ins></li>
-          <li><span class="w">Scena 8 · dato</span>solo il dodici per cento degli universitari reatini studia <del>a Rieti</del> → <ins>in provincia</ins></li>
-          <li><span class="w">Scena 10 · refuso</span>si può <del>fisscare come</del> <ins>fissare come obiettivo un</ins> percorso ITS…</li>
-          <li><span class="w">Scena 4 · ordine</span>la voce cita il pendolarismo prima dello spopolamento, le mappe entrano al contrario: vedi proposta sotto la scena.</li>
+          <li><span class="w">Tutti i frame</span>logo ANCI in alto a destra, monogramma OpenEconomics in basso a sinistra (nero sui fondi bianchi). I testi in basso sono saliti per fargli spazio.</li>
+          <li><span class="w">Scena 1</span>tolto il logo, testo centrato in verticale, filigrana <ins>28–34</ins> al posto di 2028</li>
+          <li><span class="w">Scena 2</span>ripresa da drone su Rieti al posto della foto sfocata</li>
+          <li><span class="w">Scene 5, 6, 10</span>nuovi testi del voiceover</li>
+          <li><span class="w">Scena 7</span>grafico centrato, titolo <ins>Profili più difficili da reperire</ins>, «Fonte: Unioncamere» in basso a sinistra</li>
+          <li><span class="w">Scena 8</span>didascalia: <ins>percentuale degli universitari reatini che studiano in provincia</ins></li>
+          <li><span class="w">Scena 10</span>«Esempio» senza «Azione 1.1» e nuovi testi nei blocchi</li>
+          <li><span class="w">Scena 11</span>indicatori visibili sotto ogni priorità</li>
+          <li><span class="w">Scene 12 e 13</span>nuove: screencast del quadro logico a tutto schermo; tabella evidenze → leve europee</li>
+          <li><span class="w">Scene 14, 15, 16</span>obiettivo su foto del ponte sul Velino senza card; domanda bianca su Bluette senza Lime; logo al centro e claim</li>
+        </ul>
+        <h3 class="sec-h" style="margin-top:32px">Da chiudere</h3>
+        <ul class="fix">
+          <li><span class="w">Scena 10</span>nel feedback «programmazione <del>2027-2024</del>»: ho messo <ins>2028–2034</ins>, da confermare</li>
+          <li><span class="w">Scena 14</span>«Tutto questo<del>,</del> è ispirato <del>ad</del> <ins>a</ins> un unico obiettivo»</li>
+          <li><span class="w">Scena 15</span>manca la voce: proposta, la voce legge la domanda</li>
+          <li><span class="w">Scena 5</span>«verificare con Fede»: basi diverse, Rieti 2025 su export totale, Lazio e Italia 2024 su export manifatturiero</li>
+          <li><span class="w">Scena 8 · voce</span>dice ancora «studia <del>a Rieti</del>», il dato è <ins>in provincia</ins></li>
+          <li><span class="w">Scena 4 · ordine</span>la voce cita il pendolarismo prima dello spopolamento, le mappe entrano al contrario</li>
+          <li><span class="w">Logo ANCI</span>il file ricevuto è largo 234 px: per il video in 1080p serve una versione vettoriale o più grande</li>
+          <li><span class="w">Scena 12</span>lo screencast mostra il puntatore: per il montaggio conviene rifarlo in 1920×1080, senza puntatore</li>
         </ul>
       </div>
     </div>
@@ -757,9 +878,9 @@ footer .fine{
   <div class="wrap">
     <h2>Note di lettura</h2>
     <ul>
-      <li>Questa pagina è uno <strong>storyboard</strong>: i frame mostrano composizione, testi e tempi d'entrata. Le scene 6, 8 e 9 hanno già il clip video; manca ancora la voce.</li>
+      <li>Questa pagina è uno <strong>storyboard</strong>: i frame mostrano composizione, testi e tempi d'entrata. Le scene 2, 6, 8, 9 e 12 hanno già il video; manca ancora la voce.</li>
       <li><strong>Mappe, sagome, grafico e contatori</strong> sono disegnati con i dati dell'analisi territoriale: confini ISTAT al 1° gennaio 2025 e 73 comuni (Mappe 1 e 2), Excelsior 2025 (Grafico 4), Camera di Commercio e Farmindustria (quote di export), valore aggiunto provinciale 2024. Sagome di Lazio e Italia: confini regionali ISTAT via openpolis.</li>
-      <li><strong>Foto della scena 2:</strong> «Veduta di Rieti», autore Vounce, <a href="https://commons.wikimedia.org/wiki/File:Veduta_di_Rieti.jpg">Wikimedia Commons</a>, licenza CC BY-SA 4.0. Va accreditata nei titoli o nella descrizione del video.</li>
+      <li><strong>Rieti, scene 2 e 14:</strong> video da drone e foto del ponte sul Velino da Adobe Stock (474852561 e 38337409), forniti dal team. La foto del giardino con il campanile (38331962) è in <code>assets/frames/alternative/</code>. Scena 12: screencast del minisito.</li>
       <li><strong>Scene 6, 8 e 9:</strong> clip video generati con AI (Seedance 2.5 su Magnific) a partire dai fotogrammi in <code>assets/frames/</code>, che restano come anteprima. Le varianti scartate dei fotogrammi sono in <code>assets/frames/alternative/</code>.</li>
       <li>Numeri a schermo in <strong>formato italiano</strong> (149.766 · 9,1%).</li>
       <li>Il «verificare con Fede» della scena 5 resta aperto: va confermato il confronto tra basi diverse (export totale 2025 contro export manifatturiero 2024).</li>
