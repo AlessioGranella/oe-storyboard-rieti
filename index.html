@@ -119,13 +119,23 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .frame.light .safe::before{outline-color:rgba(68,0,179,.7)}
 
 /* ── Tipografia nei frame (unità cqw: 100cqw = 1920px del video) ─────── */
-.k{font-family:var(--mono);font-size:1.35cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
-.light .k{color:var(--bluette-700)}
-.hl{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:-.01em}
-.num{font-family:var(--serif);font-weight:400;line-height:.9;letter-spacing:-.02em;font-variant-numeric:lining-nums}
-.cap{font-family:var(--sans);font-size:1.75cqw;line-height:1.3}
-.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,0,55,.78) 0%,rgba(20,0,55,.45) 42%,rgba(20,0,55,0) 70%)}
-.shade.b{background:linear-gradient(0deg,rgba(20,0,55,.82) 0%,rgba(20,0,55,.35) 40%,rgba(20,0,55,0) 65%)}
+.k{font-family:var(--mono);font-size:1.8cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.74)}
+.light .k{color:var(--gray-700)}
+.hl{font-family:var(--serif);font-weight:400;line-height:1.14;letter-spacing:-.005em}
+.num{font-family:var(--mono);font-weight:700;line-height:.84;letter-spacing:-.035em;color:var(--lime-400);font-variant-numeric:lining-nums}
+.cap{font-family:var(--serif);font-weight:400;font-size:4.3cqw;line-height:1.14;color:var(--white)}
+/* ombra neutra sfumata sotto i testi, come nei clip titolati: non altera il colore dell'immagine */
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse 75% 70% at 0% 100%,rgba(0,0,0,.62) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,0) 75%)}
+.shade.b{background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.25) 35%,rgba(0,0,0,0) 60%)}
+/* blocco titoli in basso a sinistra: pad 5cqw, base 4,6cqw, larghezza max 55cqw */
+.tblock{position:absolute;left:5cqw;bottom:4.6cqw;max-width:55cqw;display:flex;flex-direction:column}
+.tblock .k{margin-bottom:2cqw}
+.tblock .num + .cap,.tblock .num + .hl{margin-top:1.6cqw}
+.on-photo{text-shadow:0 0 2.2cqw rgba(0,0,0,.45)}
+/* il mono dà cassa piena a punto e virgola: stretta come in burn_titles.py (−0,42em) */
+.num .sep{margin:0 -.21em}
+/* Hedvig: la legatura ff non è nel taglio 18pt e lascia un buco */
+.hl,.cap,.card h4,.goal p,.blk .v,.chain span{font-variant-ligatures:no-common-ligatures}
 
 .photo{position:absolute;inset:-2%;width:104%;height:104%;object-fit:cover;display:block}
 
@@ -161,9 +171,9 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .frame:not(.play) .a-draw{stroke-dashoffset:0}
 
 /* ── Scena 1 ── */
-.s1 .stage{padding:0 10cqw;display:flex;flex-direction:column;justify-content:center;gap:2.6cqw}
-.s1 .hl{font-size:5.3cqw;max-width:30ch}
-.s1 .line2{color:var(--white)}
+.s1 .tblock{max-width:80cqw}
+.s1 .hl{font-size:4.9cqw}
+.s1 .line1{color:rgba(255,255,255,.74)}
 .s1 .big{position:absolute;right:-1.5cqw;bottom:-3.5cqw;font-family:var(--serif);font-size:30cqw;line-height:1;color:rgba(255,255,255,.06);letter-spacing:-.04em;pointer-events:none}
 
 /* ── Scena 2 ── */
@@ -171,16 +181,16 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .s2 .tint{position:absolute;inset:0;background:var(--bluette-900);mix-blend-mode:multiply;opacity:.35}
 
 /* ── Scena 3 ── */
-.s3 svg.prov{position:absolute;right:8cqw;top:7cqw;height:76%;overflow:visible}
-.s3 .nums{position:absolute;left:10cqw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:3.4cqw}
-.s3 .num{font-size:10.5cqw;color:var(--lime-400)}
-.s3 .cap{margin-top:.8cqw}
+.s3 svg.prov{position:absolute;right:6cqw;top:7cqw;height:76%;overflow:visible}
+.s3 .nums{position:absolute;left:5cqw;bottom:4.6cqw;display:flex;flex-direction:column;gap:3.6cqw}
+.s3 .num{font-size:11cqw}
+.s3 .cap{margin-top:1.2cqw}
 
 /* ── Scena 4 ── */
 .s4 .maps{position:absolute;inset:7cqw 5cqw 4.5cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
 .s4 .m{display:flex;flex-direction:column;gap:1cqw;min-width:0}
 .s4 svg{width:100%;height:auto;overflow:visible}
-.s4 .m .k{font-size:1.25cqw}
+.s4 .m .k{font-size:1.5cqw}
 .s4 .lg{display:flex;flex-wrap:wrap;gap:.5cqw 1.6cqw;font-family:var(--mono);font-size:1.05cqw;color:var(--gray-700);text-transform:uppercase;letter-spacing:.06em}
 .s4 .lg i{display:inline-block;width:1cqw;height:1cqw;border-radius:50%;margin-right:.5cqw;vertical-align:-.1cqw}
 
@@ -189,63 +199,64 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .s5 .col{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;min-width:0}
 .s5 svg{height:19cqw;width:auto;max-width:100%;overflow:visible}
 .s5 .col.hero svg{height:25cqw}
-.s5 .num{font-size:6.2cqw;color:var(--white)}
-.s5 .col.hero .num{font-size:8.4cqw;color:var(--lime-400)}
-.s5 .cap{font-size:1.55cqw;color:rgba(255,255,255,.82)}
-.s5 .top{position:absolute;left:6cqw;top:6cqw}
+.s5 .num{font-size:6cqw;color:var(--white)}
+.s5 .col.hero .num{font-size:8.6cqw;color:var(--lime-400)}
+.s5 .cap{font-size:2.5cqw}
+.s5 .top{position:absolute;left:6cqw;top:6.2cqw}
 
 /* ── Scena 6, 8, 9: foto con testo ── */
-.photoText{position:absolute;left:8cqw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.4cqw;max-width:46cqw}
-.photoText .num{font-size:13cqw;color:var(--lime-400)}
-.photoText .cap{font-size:2cqw;max-width:30ch}
-.swap{position:relative}
-.swap > div{display:flex;flex-direction:column;gap:1.2cqw}
-.swap > div + div{position:absolute;left:0;top:0}
+.photoText .num{font-size:11cqw}
+.swap{display:grid}
+.swap > div{grid-area:1/1;display:flex;flex-direction:column;justify-content:flex-end}
+.swap > div .num + .cap{margin-top:1.6cqw}
 
 /* ── Scena 7 ── */
 .s7 .stage{padding:6.5cqw 6cqw 4cqw}
 .s7 svg{width:100%;height:auto;display:block}
 
 /* ── Scena 9 ── */
-.chain{position:absolute;left:6cqw;right:6cqw;bottom:6cqw;display:flex;align-items:center;gap:1.6cqw;flex-wrap:nowrap}
-.chain span{font-family:var(--mono);font-size:1.9cqw;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.chain .ar{color:var(--lime-400)}
+.chain{position:absolute;left:5cqw;right:5cqw;bottom:4.6cqw;display:flex;align-items:baseline;gap:1.8cqw;flex-wrap:nowrap}
+.chain span{font-family:var(--serif);font-size:4.3cqw;line-height:1.14}
+.chain .ar{font-family:var(--mono);font-weight:700;color:var(--lime-400);font-size:3.4cqw}
 
 /* ── Scena 10 ── */
-.s10 .stage{padding:7cqw 6cqw;display:flex;flex-direction:column;gap:3.2cqw}
-.s10 .hl{font-size:3.6cqw}
+.s10 .stage{padding:6.4cqw 5cqw 4.6cqw;display:flex;flex-direction:column;gap:2.6cqw}
+.s10 .hl{font-size:4.3cqw}
+.s10 .k{margin-bottom:1.2cqw}
 .blocks{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.6cqw;align-items:stretch;flex:1}
 .blk{border:1px solid rgba(255,255,255,.55);padding:2.2cqw;display:flex;flex-direction:column;gap:1.4cqw}
 .blk .tag{align-self:flex-start;background:var(--lime-400);color:var(--black);font-family:var(--mono);font-size:1.25cqw;font-weight:700;letter-spacing:.12em;padding:.4cqw .8cqw}
-.blk .v{font-family:var(--serif);font-size:2.55cqw;line-height:1.15}
-.blk .s{font-size:1.45cqw;line-height:1.35;color:rgba(255,255,255,.78);margin-top:auto}
+.blk .v{font-family:var(--serif);font-size:2.9cqw;line-height:1.14}
+.blk .s{font-size:1.6cqw;line-height:1.35;color:rgba(255,255,255,.74);margin-top:auto}
 .arrow{align-self:center;width:3cqw}
 
 /* ── Scene 11–12: card ── */
 .cards{position:absolute;left:5cqw;right:5cqw;bottom:5cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
-.card{background:var(--white);color:var(--black);padding:2.2cqw 2.2cqw 2.4cqw;display:flex;flex-direction:column;gap:1.3cqw;min-height:27cqw}
-.card .pk{font-family:var(--mono);font-size:1.15cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--bluette-700);font-weight:600}
-.card h4{font-family:var(--sans);font-weight:700;font-size:1.85cqw;line-height:1.22;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
+.card{background:var(--white);color:var(--black);padding:2.2cqw 2.2cqw 2.4cqw;display:flex;flex-direction:column;gap:1.3cqw;min-height:26cqw}
+.card .pk{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--bluette-700);font-weight:600}
+.card h4{font-family:var(--serif);font-weight:400;font-size:2.3cqw;line-height:1.14;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
 .card ol{list-style:none;display:flex;flex-direction:column;gap:.9cqw}
-.card li{display:grid;grid-template-columns:3.2cqw 1fr;font-size:1.35cqw;line-height:1.3;color:var(--gray-700)}
+.card li{display:grid;grid-template-columns:3.2cqw 1fr;font-size:1.45cqw;line-height:1.3;color:var(--gray-700)}
 .card li b{font-family:var(--mono);font-weight:600;color:var(--bluette-700);font-size:1.2cqw}
-.s11 .intro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1cqw}
+.s11 .intro{position:absolute;left:5cqw;bottom:4.6cqw;display:flex;flex-direction:column;gap:2.4cqw}
+.s11 .intro .row{display:flex;align-items:baseline;gap:2.6cqw}
 .s11 .intro .num{font-size:11cqw}
-.s11 .intro .num em{font-style:normal;color:var(--lime-400)}
-.s11 .head{position:absolute;left:5cqw;top:6.5cqw;display:flex;gap:2cqw;align-items:baseline}
-.s11 .head .hl{font-size:3.4cqw}
+.s11 .intro .cap{font-size:6.2cqw}
+.s11 .head{position:absolute;left:5cqw;top:6.4cqw}
+.s11 .head .hl{font-size:4.3cqw}
+.s11 .head .k{margin-bottom:1.2cqw}
 .s12 .cards{bottom:4cqw}
 .s12 .card{min-height:20cqw;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.45)}
 .s12 .card .pk{color:var(--bluette-100)}
-.s12 .card h4{border-bottom:0;padding-bottom:0;font-weight:400}
+.s12 .card h4{border-bottom:0;padding-bottom:0}
 .goal{position:absolute;left:5cqw;right:5cqw;top:6cqw;background:var(--lime-400);color:var(--black);padding:2.2cqw 2.6cqw;display:flex;gap:2.4cqw;align-items:flex-start}
-.goal .pk{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;font-weight:700;text-transform:uppercase;padding-top:.6cqw;white-space:nowrap}
-.goal p{font-family:var(--serif);font-size:2.9cqw;line-height:1.16}
+.goal .pk{font-family:var(--mono);font-size:1.6cqw;letter-spacing:.14em;font-weight:700;text-transform:uppercase;padding-top:.6cqw;white-space:nowrap}
+.goal p{font-family:var(--serif);font-size:3.4cqw;line-height:1.14}
 
 /* ── Scena 13 ── */
-.s13 .stage{display:flex;flex-direction:column;justify-content:space-between;padding:8cqw 10cqw}
+.s13 .stage{display:flex;flex-direction:column;justify-content:space-between;padding:6.4cqw 5cqw 4.6cqw}
 .s13 img{width:30cqw;height:auto;display:block}
-.s13 .hl{font-size:4.2cqw;max-width:24ch}
+.s13 .hl{font-size:4.9cqw;max-width:22ch}
 
 /* ── Metadati sotto il frame ──────────────────────────────────────────── */
 .info{border-left:1px solid var(--black);padding:16px 0 0 16px;margin-top:16px}
@@ -359,9 +370,11 @@ footer .fine{
         <div class="frame s1" data-dur="11" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
           <div class="stage">
             <span class="big a-fade" style="--d:.2s" aria-hidden="true">2028</span>
-            <p class="k a-up" style="--d:.3s">Programmazione europea 2028–2034</p>
-            <p class="hl line1 a-up" style="--d:.9s">Dalla rendicontazione dei costi</p>
-            <p class="hl line2 a-up" style="--d:4.2s">alla misurazione degli obiettivi raggiunti</p>
+            <div class="tblock">
+              <p class="k a-up" style="--d:.3s">Programmazione europea 2028–2034</p>
+              <p class="hl line1 a-up" style="--d:.9s">Dalla rendicontazione dei costi</p>
+              <p class="hl line2 a-up" style="--d:4.2s">alla misurazione degli obiettivi raggiunti</p>
+            </div>
           </div>
           <span class="tc">Sc. 1 · 0:00 – 0:11</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
         </div>
@@ -400,8 +413,8 @@ footer .fine{
           <div class="stage">
             <svg class="prov" id="s3map" viewBox="0 0 560 470" aria-hidden="true"></svg>
             <div class="nums">
-              <div class="a-up" style="--d:.4s"><p class="num count" data-to="73" data-d=".4" data-t="1.8">73</p><p class="cap">comuni</p></div>
-              <div class="a-up" style="--d:2.4s"><p class="num count" data-to="149766" data-d="2.4" data-t="1.6">149.766</p><p class="cap">abitanti</p></div>
+              <div class="a-up" style="--d:.4s"><p class="k" style="margin-bottom:1.6cqw">Provincia di Rieti</p><p class="num count" data-to="73" data-d=".4" data-t="1.8">73</p><p class="cap">comuni</p></div>
+              <div class="a-up" style="--d:2.4s"><p class="num count" data-to="149766" data-d="2.4" data-t="1.6">149<span class="sep">.</span>766</p><p class="cap">abitanti</p></div>
             </div>
           </div>
           <span class="tc">Sc. 3 · 0:20 – 0:27</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
@@ -455,7 +468,7 @@ footer .fine{
             <div class="sil">
               <div class="col hero a-up" style="--d:.5s"><svg id="silR" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="80" data-d="1" data-t="1.6">80</span>%</p><p class="cap">Provincia di Rieti, 2025</p></div>
               <div class="col a-up" style="--d:4.5s"><svg id="silL" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="48" data-d="5" data-t="1.2">48</span>%</p><p class="cap">Lazio, 2024</p></div>
-              <div class="col a-up" style="--d:6.5s"><svg id="silI" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="9.1" data-dec="1" data-d="7" data-t="1">9,1</span>%</p><p class="cap">Italia, 2024</p></div>
+              <div class="col a-up" style="--d:6.5s"><svg id="silI" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="9.1" data-dec="1" data-d="7" data-t="1">9<span class="sep">,</span>1</span>%</p><p class="cap">Italia, 2024</p></div>
             </div>
           </div>
           <span class="tc">Sc. 5 · 0:41 – 0:56</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
@@ -477,7 +490,7 @@ footer .fine{
           <div class="stage">
             <img class="photo a-kb" style="--kb:17s" src="assets/frames/06-farmaceutica.jpg" alt="Due tecnici in camice ispezionano fiale su una linea di riempimento farmaceutica">
             <div class="shade"></div>
-            <div class="photoText">
+            <div class="tblock photoText on-photo">
               <p class="k a-up" style="--d:9s">Valore aggiunto per abitante, 2024</p>
               <p class="num a-up" style="--d:9.4s">−<span class="count" data-to="27" data-d="9.4" data-t="1.2">27</span>%</p>
               <p class="cap a-up" style="--d:10s">rispetto alla media italiana</p>
@@ -522,14 +535,17 @@ footer .fine{
           <div class="stage">
             <img class="photo a-kbL" style="--kb:13s" src="assets/frames/08-studenti.jpg" alt="Studenti universitari in un laboratorio di chimica">
             <div class="shade"></div>
-            <div class="photoText swap">
-              <div class="a-out" style="--d:6.6s">
-                <p class="num a-up" style="--d:.6s">0</p>
-                <p class="cap a-up" style="--d:1s">corsi universitari o ITS in chimica, farmacia, biotecnologie</p>
-              </div>
-              <div class="a-up" style="--d:7.2s">
-                <p class="num"><span class="count" data-to="12" data-d="7.2" data-t="1">12</span>%</p>
-                <p class="cap">degli universitari reatini studia in provincia</p>
+            <div class="tblock photoText on-photo">
+              <p class="k a-up" style="--d:.3s">Formazione a Rieti</p>
+              <div class="swap">
+                <div class="a-out" style="--d:6.6s">
+                  <p class="num a-up" style="--d:.6s">0</p>
+                  <p class="cap a-up" style="--d:1s">corsi universitari o ITS in chimica, farmacia, biotecnologie</p>
+                </div>
+                <div class="a-up" style="--d:7.2s">
+                  <p class="num"><span class="count" data-to="12" data-d="7.2" data-t="1">12</span>%</p>
+                  <p class="cap">degli universitari reatini studia in provincia</p>
+                </div>
               </div>
             </div>
           </div>
@@ -552,7 +568,7 @@ footer .fine{
           <div class="stage">
             <img class="photo a-kb" style="--kb:13s" src="assets/frames/09-controllo-qualita.jpg" alt="Analista di laboratorio davanti a un cromatogramma">
             <div class="shade b"></div>
-            <div class="chain">
+            <div class="chain on-photo">
               <span class="a-up" style="--d:3s">Dato</span><span class="ar a-fade" style="--d:4.4s">→</span>
               <span class="a-up" style="--d:4.6s">Diagnosi</span><span class="ar a-fade" style="--d:6.6s">→</span>
               <span class="a-up" style="--d:6.8s">Obiettivi</span><span class="ar a-fade" style="--d:9.4s">→</span>
@@ -577,6 +593,7 @@ footer .fine{
           <div class="stage">
             <div>
               <p class="k a-up" style="--d:.2s">Esempio · Azione 1.1</p>
+              <p class="hl a-up" style="--d:.5s">Dal dato all'indicatore</p>
             </div>
             <div class="blocks">
               <div class="blk a-up" style="--d:1.6s"><span class="tag">Dato</span><p class="v">Zero percorsi in chimica e farmaceutica a Rieti</p><p class="s">Mancano le competenze che il comparto cerca</p></div>
@@ -604,10 +621,11 @@ footer .fine{
         <div class="frame s11" data-dur="22" tabindex="0" role="button" aria-label="Scena 11, rivedi animazione">
           <div class="stage">
             <div class="intro a-out" style="--d:7.2s">
-              <p class="num a-up" style="--d:.4s"><em>3</em> priorità</p>
-              <p class="num a-up" style="--d:1.6s"><em>8</em> azioni</p>
+              <p class="k a-up" style="--d:.2s">La strategia per Rieti</p>
+              <div class="row a-up" style="--d:.4s"><p class="num">3</p><p class="cap">priorità</p></div>
+              <div class="row a-up" style="--d:1.6s"><p class="num">8</p><p class="cap">azioni</p></div>
             </div>
-            <div class="head a-fade" style="--d:7.6s"><p class="k">3 priorità · 8 azioni</p></div>
+            <div class="head a-fade" style="--d:7.6s"><p class="k">3 priorità · 8 azioni</p><p class="hl">Competenze, filiere, diversificazione</p></div>
             <div class="cards">
               <div class="card a-in" style="--d:7.8s">
                 <p class="pk">Priorità 1</p>
@@ -671,7 +689,7 @@ footer .fine{
           <div class="stage">
             <img class="a-fade" style="--d:.3s" src="assets/logo-white.svg" alt="OpenEconomics">
             <div>
-              <p class="k a-up" style="--d:1s;margin-bottom:1.4cqw">Analisi territoriale · Provincia di Rieti</p>
+              <p class="k a-up" style="--d:1s;margin-bottom:2cqw">Analisi territoriale · Provincia di Rieti</p>
               <p class="hl a-up" style="--d:1.4s">Dal dato agli obiettivi della programmazione 2028–2034</p>
             </div>
           </div>
@@ -754,6 +772,7 @@ footer .fine{
   'use strict';
   var S = window.SHAPES, NS = 'http://www.w3.org/2000/svg';
   var fmt = function(v, dec){ return new Intl.NumberFormat('it-IT',{minimumFractionDigits:dec||0,maximumFractionDigits:dec||0,useGrouping:'always'}).format(v); };
+  var fmtNum = function(v, dec){ return fmt(v, dec).replace(/[.,]/g, '<span class="sep">$&</span>'); };
   function el(tag, attrs, parent){
     var n = document.createElementNS(NS, tag);
     for (var k in attrs) n.setAttribute(k, attrs[k]);
@@ -870,13 +889,13 @@ footer .fine{
     f.querySelectorAll('.count').forEach(function(c){
       var to = parseFloat(c.dataset.to), dec = parseInt(c.dataset.dec || 0, 10);
       var d = parseFloat(c.dataset.d || 0) * 1000, t = parseFloat(c.dataset.t || 1) * 1000;
-      c.textContent = fmt(0, dec);
+      c.innerHTML = fmtNum(0, dec);
       var start = performance.now() + d;
       (function step(now){
-        if (!f.classList.contains('play')) { c.textContent = fmt(to, dec); return; }
+        if (!f.classList.contains('play')) { c.innerHTML = fmtNum(to, dec); return; }
         var k = Math.min(1, Math.max(0, (now - start) / t));
         k = 1 - Math.pow(1 - k, 3);
-        c.textContent = fmt(to * k, dec);
+        c.innerHTML = fmtNum(to * k, dec);
         if (k < 1) requestAnimationFrame(step);
       })(performance.now());
     });
@@ -900,7 +919,7 @@ footer .fine{
     clearTimeout(timers.get(f));
     f.classList.remove('play');
     settle(f);
-    f.querySelectorAll('.count').forEach(function(c){ c.textContent = fmt(parseFloat(c.dataset.to), parseInt(c.dataset.dec || 0, 10)); });
+    f.querySelectorAll('.count').forEach(function(c){ c.innerHTML = fmtNum(parseFloat(c.dataset.to), parseInt(c.dataset.dec || 0, 10)); });
   }
   frames.forEach(settle);
 
