@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Storyboard visivo — Video Rieti | OpenEconomics</title>
+
+<style>
+/* ── Font ─────────────────────────────────────────────────────────────── */
+@font-face{font-family:"Hedvig Letters Serif";src:url("assets/fonts/HedvigLettersSerif-18pt-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible Next";src:url("assets/fonts/AtkinsonHyperlegibleNext-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible Next";src:url("assets/fonts/AtkinsonHyperlegibleNext-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible Mono";src:url("assets/fonts/AtkinsonHyperlegibleMono-VariableFont_wght.ttf") format("truetype");font-weight:200 800;font-display:swap}
+
+/* ── Token OE ─────────────────────────────────────────────────────────── */
+:root{
+  --bluette-050:#EFE5FF; --bluette-100:#D9C1FF; --bluette-200:#B991FF; --bluette-400:#8742FF;
+  --bluette-600:#5902EE; --bluette-700:#4400B3; --bluette-800:#340088; --bluette-900:#270065;
+  --lime-400:#B9FF69; --lime-500:#91FF15; --lime-700:#67C300;
+  --magenta-400:#FF8DFF; --magenta-700:#C300C3;
+  --white:#FFFFFF; --black:#000000;
+  --gray-100:#F1F1F1; --gray-200:#E7E7E7; --gray-300:#D2D2D2; --gray-400:#AFAFAF;
+  --gray-500:#999999; --gray-600:#6E6E6E; --gray-700:#545454;
+
+  --serif:"Hedvig Letters Serif",Georgia,serif;
+  --sans:"Atkinson Hyperlegible Next",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+  --max:1440px;
+  --pad:40px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+
+body{
+  background:var(--white);color:var(--black);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.masthead{background:var(--bluette-700);color:var(--white);padding:64px 0 56px}
+.masthead .wrap{display:flex;flex-direction:column;gap:28px}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--lime-400);
+}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);line-height:1.06;letter-spacing:-.01em;max-width:20ch}
+.sub{font-size:17px;line-height:1.5;max-width:66ch;color:rgba(255,255,255,.86)}
+
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.28);margin-top:6px;
+}
+.meta div{background:var(--bluette-700);padding:16px 18px}
+.meta dt{
+  font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:rgba(255,255,255,.62);margin-bottom:6px;
+}
+.meta dd{font-size:15px;line-height:1.35}
+
+/* ── Barra strumenti ──────────────────────────────────────────────────── */
+.toolbar{border-bottom:1px solid var(--gray-300);background:var(--white);position:sticky;top:0;z-index:10}
+.toolbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding-top:14px;padding-bottom:14px}
+.toolbar .label{
+  font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--gray-700);
+}
+.toggle{display:inline-flex;align-items:center;gap:9px;cursor:pointer;user-select:none;font-size:14px}
+.toggle input{
+  appearance:none;width:17px;height:17px;border:1.5px solid var(--black);
+  background:var(--white);cursor:pointer;flex:none;display:grid;place-content:center;
+}
+.toggle input:checked{background:var(--bluette-700);border-color:var(--bluette-700)}
+.toggle input:checked::after{content:"";width:8px;height:8px;background:var(--lime-400)}
+.toggle input:focus-visible{outline:2px solid var(--bluette-700);outline-offset:2px}
+.toolbar .hint{font-size:13px;color:var(--gray-600);margin-left:auto}
+
+/* ── Griglia frame ────────────────────────────────────────────────────── */
+.board{padding:48px 0 80px}
+.sec-h{
+  font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--gray-700);margin-bottom:28px;
+}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 32px}
+.grid.big{grid-template-columns:1fr}
+.beat{display:flex;flex-direction:column;min-width:0}
+
+.frame{
+  container-type:inline-size;
+  position:relative;aspect-ratio:16/9;overflow:hidden;cursor:pointer;
+  background:var(--bluette-700);border:1px solid var(--black);color:var(--white);
+}
+.frame.light{background:var(--white);color:var(--black)}
+.frame.deep{background:var(--bluette-900)}
+.stage{position:absolute;inset:0;z-index:1}
+
+/* timecode e replay — solo in questa pagina */
+.tc{
+  position:absolute;left:2.4cqw;top:2cqw;z-index:4;
+  font-family:var(--mono);font-size:1.3cqw;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--lime-400);background:rgba(0,0,0,.55);padding:.35cqw .7cqw;
+}
+.replay{
+  position:absolute;right:2.4cqw;top:2cqw;z-index:4;
+  font-family:var(--mono);font-size:1.1cqw;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);background:rgba(0,0,0,.55);padding:.35cqw .7cqw;opacity:0;transition:opacity .2s;
+}
+.frame:hover .replay,.frame:focus-visible .replay{opacity:1}
+.frame:focus-visible{outline:3px solid var(--bluette-700);outline-offset:3px}
+
+/* Title safe 16:9 — toggle */
+.safe{position:absolute;inset:0;z-index:3;display:none;pointer-events:none}
+.grid.show-safe .safe{display:block}
+.safe::before{content:"";position:absolute;inset:10%;outline:1px dashed rgba(185,255,105,.9)}
+.frame.light .safe::before{outline-color:rgba(68,0,179,.7)}
+
+/* ── Tipografia nei frame (unità cqw: 100cqw = 1920px del video) ─────── */
+.k{font-family:var(--mono);font-size:1.35cqw;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
+.light .k{color:var(--bluette-700)}
+.hl{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:-.01em}
+.num{font-family:var(--serif);font-weight:400;line-height:.9;letter-spacing:-.02em;font-variant-numeric:lining-nums}
+.cap{font-family:var(--sans);font-size:1.75cqw;line-height:1.3}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,0,55,.78) 0%,rgba(20,0,55,.45) 42%,rgba(20,0,55,0) 70%)}
+.shade.b{background:linear-gradient(0deg,rgba(20,0,55,.82) 0%,rgba(20,0,55,.35) 40%,rgba(20,0,55,0) 65%)}
+
+.photo{position:absolute;inset:-2%;width:104%;height:104%;object-fit:cover;display:block}
+
+/* ── Animazioni: senza .play il frame mostra lo stato finale ─────────── */
+@keyframes up{from{opacity:0;transform:translateY(2.2cqw)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes out{from{opacity:1}to{opacity:0}}
+@keyframes dim{from{opacity:1}to{opacity:.38}}
+@keyframes pop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+@keyframes growX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:var(--len,3000)}to{stroke-dashoffset:0}}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes kbL{from{transform:scale(1.06) translateX(1.5%)}to{transform:scale(1.06) translateX(-1.5%)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-3cqw)}to{opacity:1;transform:none}}
+@keyframes slideIn{from{opacity:0;transform:translateX(4cqw)}to{opacity:1;transform:none}}
+
+.play .a-up{animation:up .7s var(--ease) var(--d,0s) both}
+.play .a-fade{animation:fade .8s ease var(--d,0s) both}
+.play .a-out{animation:out .5s ease var(--d,0s) both}
+.play .a-dim{animation:dim .6s ease var(--d,0s) both}
+.play .a-pop{animation:pop .45s var(--ease) var(--d,0s) both;transform-box:fill-box;transform-origin:center}
+.play .a-growX{animation:growX .9s var(--ease) var(--d,0s) both;transform-box:fill-box;transform-origin:left center}
+.play .a-growY{animation:growY 1.4s var(--ease) var(--d,0s) both;transform-box:fill-box;transform-origin:center bottom}
+.play .a-draw{animation:draw 2.2s ease-in-out var(--d,0s) both}
+.play .a-kb{animation:kb var(--kb,10s) linear 0s both}
+.play .a-kbL{animation:kbL var(--kb,10s) linear 0s both}
+.play .a-down{animation:slideDown .8s var(--ease) var(--d,0s) both}
+.play .a-in{animation:slideIn .7s var(--ease) var(--d,0s) both}
+/* stati finali per gli elementi che a fine scena spariscono o si attenuano */
+.is-out{opacity:0}
+.is-dim{opacity:.38}
+.frame:not(.play) .a-draw{stroke-dashoffset:0}
+
+/* ── Scena 1 ── */
+.s1 .stage{padding:0 10cqw;display:flex;flex-direction:column;justify-content:center;gap:2.6cqw}
+.s1 .hl{font-size:5.3cqw;max-width:30ch}
+.s1 .line2{color:var(--white)}
+.s1 .big{position:absolute;right:-1.5cqw;bottom:-3.5cqw;font-family:var(--serif);font-size:30cqw;line-height:1;color:rgba(255,255,255,.06);letter-spacing:-.04em;pointer-events:none}
+
+/* ── Scena 2 ── */
+.s2 .photo{filter:blur(.55cqw) saturate(.9)}
+.s2 .tint{position:absolute;inset:0;background:var(--bluette-900);mix-blend-mode:multiply;opacity:.35}
+
+/* ── Scena 3 ── */
+.s3 svg.prov{position:absolute;right:8cqw;top:7cqw;height:76%;overflow:visible}
+.s3 .nums{position:absolute;left:10cqw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:3.4cqw}
+.s3 .num{font-size:10.5cqw;color:var(--lime-400)}
+.s3 .cap{margin-top:.8cqw}
+
+/* ── Scena 4 ── */
+.s4 .maps{position:absolute;inset:7cqw 5cqw 4.5cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
+.s4 .m{display:flex;flex-direction:column;gap:1cqw;min-width:0}
+.s4 svg{width:100%;height:auto;overflow:visible}
+.s4 .m .k{font-size:1.25cqw}
+.s4 .lg{display:flex;flex-wrap:wrap;gap:.5cqw 1.6cqw;font-family:var(--mono);font-size:1.05cqw;color:var(--gray-700);text-transform:uppercase;letter-spacing:.06em}
+.s4 .lg i{display:inline-block;width:1cqw;height:1cqw;border-radius:50%;margin-right:.5cqw;vertical-align:-.1cqw}
+
+/* ── Scena 5 ── */
+.s5 .sil{position:absolute;inset:9cqw 6cqw 5cqw;display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:3cqw;align-items:end}
+.s5 .col{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;min-width:0}
+.s5 svg{height:19cqw;width:auto;max-width:100%;overflow:visible}
+.s5 .col.hero svg{height:25cqw}
+.s5 .num{font-size:6.2cqw;color:var(--white)}
+.s5 .col.hero .num{font-size:8.4cqw;color:var(--lime-400)}
+.s5 .cap{font-size:1.55cqw;color:rgba(255,255,255,.82)}
+.s5 .top{position:absolute;left:6cqw;top:6cqw}
+
+/* ── Scena 6, 8, 9: foto con testo ── */
+.photoText{position:absolute;left:8cqw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.4cqw;max-width:46cqw}
+.photoText .num{font-size:13cqw;color:var(--lime-400)}
+.photoText .cap{font-size:2cqw;max-width:30ch}
+.swap{position:relative}
+.swap > div{display:flex;flex-direction:column;gap:1.2cqw}
+.swap > div + div{position:absolute;left:0;top:0}
+
+/* ── Scena 7 ── */
+.s7 .stage{padding:6.5cqw 6cqw 4cqw}
+.s7 svg{width:100%;height:auto;display:block}
+
+/* ── Scena 9 ── */
+.chain{position:absolute;left:6cqw;right:6cqw;bottom:6cqw;display:flex;align-items:center;gap:1.6cqw;flex-wrap:nowrap}
+.chain span{font-family:var(--mono);font-size:1.9cqw;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.chain .ar{color:var(--lime-400)}
+
+/* ── Scena 10 ── */
+.s10 .stage{padding:7cqw 6cqw;display:flex;flex-direction:column;gap:3.2cqw}
+.s10 .hl{font-size:3.6cqw}
+.blocks{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1.6cqw;align-items:stretch;flex:1}
+.blk{border:1px solid rgba(255,255,255,.55);padding:2.2cqw;display:flex;flex-direction:column;gap:1.4cqw}
+.blk .tag{align-self:flex-start;background:var(--lime-400);color:var(--black);font-family:var(--mono);font-size:1.25cqw;font-weight:700;letter-spacing:.12em;padding:.4cqw .8cqw}
+.blk .v{font-family:var(--serif);font-size:2.55cqw;line-height:1.15}
+.blk .s{font-size:1.45cqw;line-height:1.35;color:rgba(255,255,255,.78);margin-top:auto}
+.arrow{align-self:center;width:3cqw}
+
+/* ── Scene 11–12: card ── */
+.cards{position:absolute;left:5cqw;right:5cqw;bottom:5cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
+.card{background:var(--white);color:var(--black);padding:2.2cqw 2.2cqw 2.4cqw;display:flex;flex-direction:column;gap:1.3cqw;min-height:27cqw}
+.card .pk{font-family:var(--mono);font-size:1.15cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--bluette-700);font-weight:600}
+.card h4{font-family:var(--sans);font-weight:700;font-size:1.85cqw;line-height:1.22;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
+.card ol{list-style:none;display:flex;flex-direction:column;gap:.9cqw}
+.card li{display:grid;grid-template-columns:3.2cqw 1fr;font-size:1.35cqw;line-height:1.3;color:var(--gray-700)}
+.card li b{font-family:var(--mono);font-weight:600;color:var(--bluette-700);font-size:1.2cqw}
+.s11 .intro{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1cqw}
+.s11 .intro .num{font-size:11cqw}
+.s11 .intro .num em{font-style:normal;color:var(--lime-400)}
+.s11 .head{position:absolute;left:5cqw;top:6.5cqw;display:flex;gap:2cqw;align-items:baseline}
+.s11 .head .hl{font-size:3.4cqw}
+.s12 .cards{bottom:4cqw}
+.s12 .card{min-height:20cqw;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.45)}
+.s12 .card .pk{color:var(--bluette-100)}
+.s12 .card h4{border-bottom:0;padding-bottom:0;font-weight:400}
+.goal{position:absolute;left:5cqw;right:5cqw;top:6cqw;background:var(--lime-400);color:var(--black);padding:2.2cqw 2.6cqw;display:flex;gap:2.4cqw;align-items:flex-start}
+.goal .pk{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;font-weight:700;text-transform:uppercase;padding-top:.6cqw;white-space:nowrap}
+.goal p{font-family:var(--serif);font-size:2.9cqw;line-height:1.16}
+
+/* ── Scena 13 ── */
+.s13 .stage{display:flex;flex-direction:column;justify-content:space-between;padding:8cqw 10cqw}
+.s13 img{width:30cqw;height:auto;display:block}
+.s13 .hl{font-size:4.2cqw;max-width:24ch}
+
+/* ── Metadati sotto il frame ──────────────────────────────────────────── */
+.info{border-left:1px solid var(--black);padding:16px 0 0 16px;margin-top:16px}
+.info .idx{
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--bluette-700);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.chip{
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--lime-400);color:var(--black);padding:3px 6px;
+}
+.chip.g{background:var(--gray-200)}
+.chip.w{background:var(--black);color:var(--lime-400)}
+.info dl{display:flex;flex-direction:column;gap:11px}
+.info dt{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gray-600);margin-bottom:2px;
+}
+.info dd{font-size:14px;line-height:1.5}
+.info dd.vo{font-style:italic;color:var(--gray-700)}
+.info dd.prompt{font-size:13px;color:var(--gray-700)}
+.info dd.note{font-size:13px;border-left:3px solid var(--lime-400);padding-left:10px}
+.info mark{background:var(--bluette-050);color:inherit;padding:0 2px}
+
+/* ── Revisione ────────────────────────────────────────────────────────── */
+.review{background:var(--gray-100);padding:64px 0 72px}
+.review h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.1;margin-bottom:12px}
+.review .lead{font-size:17px;max-width:70ch;color:var(--gray-700);margin-bottom:36px}
+.cols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:start}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--white)}
+th{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:10px 12px;border-bottom:1px solid var(--black);background:var(--white)}
+td{padding:9px 12px;border-bottom:1px solid var(--gray-200);vertical-align:top}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+tr.warn td{background:#F6FFEB}
+tr.warn td:first-child{box-shadow:inset 3px 0 0 var(--lime-700)}
+.fix{list-style:none;display:flex;flex-direction:column;gap:14px}
+.fix li{background:var(--white);padding:14px 16px;border-left:3px solid var(--bluette-700)}
+.fix .w{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bluette-700);display:block;margin-bottom:4px}
+.fix del{color:var(--gray-600)}
+.fix ins{text-decoration:none;background:var(--lime-400);padding:0 2px}
+.tbl-note{font-size:13px;color:var(--gray-600);margin-top:10px}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+footer{background:var(--black);color:var(--white);padding:56px 0}
+footer .wrap{display:flex;flex-direction:column;gap:18px}
+footer h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.2}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:9px;max-width:86ch}
+footer li{font-size:15px;line-height:1.5;color:rgba(255,255,255,.8);padding-left:18px;position:relative}
+footer li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--lime-400)}
+footer a{color:var(--lime-400)}
+footer code{font-family:var(--mono);font-size:.9em;color:var(--lime-400)}
+footer .fine{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-top:14px;
+}
+
+@media (max-width:1000px){ .grid{grid-template-columns:1fr} .cols{grid-template-columns:1fr} }
+@media (max-width:640px){
+  :root{--pad:16px}
+  .grid{gap:40px}
+  .masthead{padding:44px 0 40px}
+  .toolbar .hint{display:none}
+  .review table{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  .play *{animation:none!important}
+}
+@media print{
+  .toolbar{display:none}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .beat{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">OpenEconomics · Storyboard visivo · Bozza</p>
+    <h1>Video analisi territoriale Rieti</h1>
+    <p class="sub">Dalla sceneggiatura v2 del 12 ottobre 2026 ai frame: dodici scene più una chiusura proposta. Mappe, grafico, numeri e card sono costruiti con i dati dell'analisi territoriale (ISTAT, Camera di Commercio, Excelsior); le foto servono da base per i clip.</p>
+    <dl class="meta">
+      <div><dt>Durata in sceneggiatura</dt><dd>2:44</dd></div>
+      <div><dt>Durata stimata</dt><dd>circa 2:55</dd></div>
+      <div><dt>Formato</dt><dd>Orizzontale 16:9</dd></div>
+      <div><dt>Lingua</dt><dd>Italiano</dd></div>
+      <div><dt>Voiceover</dt><dd>Da scegliere</dd></div>
+      <div><dt>Tono</dt><dd>Istituzionale, data-driven</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="label">Vista</span>
+    <label class="toggle"><input type="checkbox" id="animToggle" checked> Anima i frame</label>
+    <label class="toggle"><input type="checkbox" id="safeToggle"> Mostra title safe 16:9</label>
+    <label class="toggle"><input type="checkbox" id="bigToggle"> Frame grandi</label>
+    <span class="hint">Clic su un frame per rivedere l'animazione</span>
+  </div>
+</div>
+
+<main class="board">
+  <div class="wrap">
+    <h2 class="sec-h">Scena per scena</h2>
+    <div class="grid" id="grid">
+
+      <!-- 1 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s1" data-dur="11" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
+          <div class="stage">
+            <span class="big a-fade" style="--d:.2s" aria-hidden="true">2028</span>
+            <p class="k a-up" style="--d:.3s">Programmazione europea 2028–2034</p>
+            <p class="hl line1 a-up" style="--d:.9s">Dalla rendicontazione dei costi</p>
+            <p class="hl line2 a-up" style="--d:4.2s">alla misurazione degli obiettivi raggiunti</p>
+          </div>
+          <span class="tc">Sc. 1 · 0:00 – 0:11</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 01 · Il cambio di regole <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Programmazione europea 2028–2034 · «Dalla rendicontazione dei costi» → «alla misurazione degli obiettivi raggiunti»</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Dal 2028 i fondi europei cambieranno logica. La proposta della Commissione europea prevede il passaggio da un sistema basato sui progetti a un modello orientato ai risultati e alla performance.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Fondo Bluette pieno. Il pretitolo entra su «dal 2028»; la prima riga sale subito, la seconda arriva su «modello orientato ai risultati». «2028» in filigrana, quasi invisibile, dà profondità senza diventare un elemento.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 2 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s2 deep" data-dur="9" tabindex="0" role="button" aria-label="Scena 2, rivedi animazione">
+          <div class="stage">
+            <img class="photo a-kbL" style="--kb:9s" src="assets/frames/02-rieti-veduta.jpg" alt="La piana reatina vista dalle colline di Rieti, sfocata">
+            <div class="tint"></div>
+          </div>
+          <span class="tc">Sc. 2 · 0:11 – 0:20</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 02 · L'opportunità dei dati <span class="chip w">Foto reale</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Nessun testo: parla la voce.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">In che modo i dati e l'analisi territoriale possono aiutare a programmare investimenti con obiettivi chiari e indicatori misurabili?</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">«Veduta di Rieti»: la piana reatina dalle colline, foto reale da Wikimedia Commons. Sfocata, velata di Bluette, carrello laterale lento. Alternativa in centro città: il Velino al Ponte Romano (stessa fonte).</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 3 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s3" data-dur="7" tabindex="0" role="button" aria-label="Scena 3, rivedi animazione">
+          <div class="stage">
+            <svg class="prov" id="s3map" viewBox="0 0 560 470" aria-hidden="true"></svg>
+            <div class="nums">
+              <div class="a-up" style="--d:.4s"><p class="num count" data-to="73" data-d=".4" data-t="1.8">73</p><p class="cap">comuni</p></div>
+              <div class="a-up" style="--d:2.4s"><p class="num count" data-to="149766" data-d="2.4" data-t="1.6">149.766</p><p class="cap">abitanti</p></div>
+            </div>
+          </div>
+          <span class="tc">Sc. 3 · 0:20 – 0:27</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 03 · Il territorio: Rieti <span class="chip">Dati reali</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>73 comuni · 149.766 abitanti (residenti, ISTAT)</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Partiamo dalla provincia di Rieti, un'area con settantatré comuni e quasi centocinquantamila abitanti.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Il confine della provincia si disegna in Lime mentre compaiono i 73 comuni, uno per punto, e il contatore sale insieme. Poi il numero degli abitanti.</dd></div>
+            <div><dt>Nota</dt><dd class="note">La sceneggiatura scrive «150 mila»: a schermo metto il dato esatto, 149.766; la voce resta «quasi centocinquantamila».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 4 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s4 light" data-dur="14" tabindex="0" role="button" aria-label="Scena 4, rivedi animazione">
+          <div class="stage">
+            <div class="maps">
+              <div class="m a-fade" style="--d:.2s">
+                <p class="k">Variazione residenti, 2021–2025</p>
+                <svg id="mapPop" viewBox="0 0 560 470" aria-hidden="true"></svg>
+                <div class="lg"><span><i style="background:var(--magenta-700)"></i>−5% e oltre</span><span><i style="background:var(--magenta-400)"></i>da −1% a −5%</span><span><i style="background:var(--gray-300)"></i>±1%</span><span><i style="background:var(--lime-500)"></i>da +1% a +4%</span><span><i style="background:var(--lime-700)"></i>+4% e oltre</span></div>
+              </div>
+              <div class="m a-fade" style="--d:5.2s">
+                <p class="k">Lavoratori occupati in provincia di Roma</p>
+                <svg id="mapRome" viewBox="0 0 560 470" aria-hidden="true"></svg>
+                <div class="lg"><span><i style="background:var(--bluette-900)"></i>45% e oltre</span><span><i style="background:var(--bluette-600)"></i>30–45%</span><span><i style="background:var(--bluette-400)"></i>20–30%</span><span><i style="background:var(--bluette-200)"></i>10–20%</span><span><i style="background:var(--bluette-050);outline:1px solid var(--gray-300)"></i>meno del 10%</span></div>
+              </div>
+            </div>
+          </div>
+          <span class="tc">Sc. 4 · 0:27 – 0:41</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 04 · Spopolamento e pendolarismo <span class="chip">Dati reali</span> <span class="chip g">Da allineare</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Mappa 1 e Mappa 2 dell'analisi, ridisegnate: niente titolo né fonte, stessa scala dei cerchi, Rieti e Fara in Sabina etichettati fuori dai cerchi.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Un territorio – come tanti – con problemi di pendolarismo ma soprattutto di spopolamento demografico e conseguente impoverimento delle competenze.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Come da nota del PPTX: prima la mappa dei residenti (rosa = calo, verde = crescita), poi quella del pendolarismo (viola scuro = quota alta verso Roma). I cerchi entrano in cascata.</dd></div>
+            <div><dt>Nota</dt><dd class="note">La voce nomina prima il <mark>pendolarismo</mark> e poi lo <mark>spopolamento</mark>, le mappe entrano nell'ordine inverso. Proposta: «…con problemi di spopolamento e di pendolarismo verso Roma, e un conseguente impoverimento delle competenze».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 5 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s5" data-dur="15" tabindex="0" role="button" aria-label="Scena 5, rivedi animazione">
+          <div class="stage">
+            <p class="k top a-up" style="--d:.2s">Peso della farmaceutica sulle esportazioni</p>
+            <div class="sil">
+              <div class="col hero a-up" style="--d:.5s"><svg id="silR" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="80" data-d="1" data-t="1.6">80</span>%</p><p class="cap">Provincia di Rieti, 2025</p></div>
+              <div class="col a-up" style="--d:4.5s"><svg id="silL" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="48" data-d="5" data-t="1.2">48</span>%</p><p class="cap">Lazio, 2024</p></div>
+              <div class="col a-up" style="--d:6.5s"><svg id="silI" viewBox="0 0 400 500" aria-hidden="true"></svg><p class="num"><span class="count" data-to="9.1" data-dec="1" data-d="7" data-t="1">9,1</span>%</p><p class="cap">Italia, 2024</p></div>
+            </div>
+          </div>
+          <span class="tc">Sc. 5 · 0:41 – 0:56</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 05 · Il paradosso dell'export <span class="chip">Dati reali</span> <span class="chip w">Da verificare</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>80% Rieti · 48% Lazio · 9,1% Italia — quota della farmaceutica sull'export</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">In particolare, la provincia di Rieti vanta un ottanta per cento dell'export derivante dal settore farmaceutico ma la produzione è concentrata in pochissime imprese.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Tre sagome a scala diversa, Rieti in primo piano. Ognuna si riempie di Lime dal basso: la superficie colorata è proporzionale alla quota (80%, 48%, 9,1%), non solo l'altezza.</dd></div>
+            <div><dt>Nota</dt><dd class="note">In sceneggiatura il terzo numero è etichettato «Lazio»: è il dato <mark>Italia</mark>. Le basi sono diverse: Rieti 2025 sull'export totale, Lazio e Italia 2024 sull'export manifatturiero (Farmindustria). Il minisito parla di «poche imprese», la voce di «pochissime». Resta aperto il «verificare con Fede».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 6 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s6 deep" data-dur="17" tabindex="0" role="button" aria-label="Scena 6, rivedi animazione">
+          <div class="stage">
+            <img class="photo a-kb" style="--kb:17s" src="assets/frames/06-farmaceutica.jpg" alt="Due tecnici in camice ispezionano fiale su una linea di riempimento farmaceutica">
+            <div class="shade"></div>
+            <div class="photoText">
+              <p class="k a-up" style="--d:9s">Valore aggiunto per abitante, 2024</p>
+              <p class="num a-up" style="--d:9.4s">−<span class="count" data-to="27" data-d="9.4" data-t="1.2">27</span>%</p>
+              <p class="cap a-up" style="--d:10s">rispetto alla media italiana</p>
+            </div>
+          </div>
+          <span class="tc">Sc. 6 · 0:56 – 1:13</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 06 · L'export non basta <span class="chip g">Immagine AI</span> <span class="chip">Numero proposto</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Proposta: −27% · valore aggiunto per abitante rispetto alla media italiana (24.245 € contro 33.348 €)</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Questa concentrazione settoriale aumenta il rischio economico della regione. Il valore dell'export, essendo così concentrato, non si traduce in un valore aggiunto procapite altrettanto alto. Il valore aggiunto per abitante resta il ventisette per cento, sotto la media italiana.</dd></div>
+            <div><dt>Prompt</dt><dd class="prompt">Due tecnici in tuta da camera bianca, cuffia e mascherina, ispezionano fiale su una linea di riempimento in acciaio. Luce calda sulle persone, macchinari sullo sfondo sfocati in viola e indaco. Movimento: lento push-in verso le fiale.</dd></div>
+            <div><dt>Nota</dt><dd class="note">La sceneggiatura prevede solo immagini; il numero entra quando la voce dice «ventisette per cento», così il dato si vede.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 7 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s7 light" data-dur="20" tabindex="0" role="button" aria-label="Scena 7, rivedi animazione">
+          <div class="stage">
+            <p class="k a-up" style="--d:.2s;margin-bottom:2cqw">Entrate previste nel 2025 di difficile reperimento</p>
+            <svg id="s7chart" viewBox="0 0 1600 520" aria-hidden="true"></svg>
+          </div>
+          <span class="tc">Sc. 7 · 1:13 – 1:33</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 07 · Le competenze che mancano <span class="chip">Dati reali</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Grafico 4 dell'analisi (Excelsior 2025), senza titolo né fonte: dieci profili, percentuale di difficile reperimento.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Ma soprattutto – ed è questo il paradosso per un polo di eccellenza industriale – mancano le competenze. I professionisti specializzati in chimica e farmaceutica sono tra i più difficili da reperire.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Le barre crescono tutte insieme in grigio; su «chimica e farmaceutica» si accendono in Bluette, una alla volta, i tre profili del comparto (98%, 84%, 65%). Meccanica e altri profili restano grigi: la voce non li cita.</dd></div>
+            <div><dt>Nota</dt><dd class="note">La nota del PPTX evidenzia solo «Laureati in chimica e farmaceutica»; quella del PDF i primi tre. Ho seguito il PDF.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 8 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s8 deep" data-dur="13" tabindex="0" role="button" aria-label="Scena 8, rivedi animazione">
+          <div class="stage">
+            <img class="photo a-kbL" style="--kb:13s" src="assets/frames/08-studenti.jpg" alt="Studenti universitari in un laboratorio di chimica">
+            <div class="shade"></div>
+            <div class="photoText swap">
+              <div class="a-out" style="--d:6.6s">
+                <p class="num a-up" style="--d:.6s">0</p>
+                <p class="cap a-up" style="--d:1s">corsi universitari o ITS in chimica, farmacia, biotecnologie</p>
+              </div>
+              <div class="a-up" style="--d:7.2s">
+                <p class="num"><span class="count" data-to="12" data-d="7.2" data-t="1">12</span>%</p>
+                <p class="cap">degli universitari reatini studia in provincia</p>
+              </div>
+            </div>
+          </div>
+          <span class="tc">Sc. 8 · 1:33 – 1:46</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 08 · Mancano i percorsi di formazione <span class="chip g">Immagine AI</span> <span class="chip">Dati reali</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>0 corsi universitari o ITS in chimica, farmacia, biotecnologie → 12% degli universitari reatini studia in provincia</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">A Rieti non esistono corsi universitari specialistici o ITS in questi ambiti. Solo il dodici per cento degli universitari reatini studia a Rieti.</dd></div>
+            <div><dt>Prompt</dt><dd class="prompt">Tre studenti universitari in un laboratorio didattico di chimica: una studentessa con occhiali di sicurezza pipetta in una provetta, i compagni prendono appunti. Luce calda sui volti, laboratorio sfocato in viola. Movimento: carrello laterale lento.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Il dato dell'analisi è «studia <mark>in provincia</mark>», la voce dice «a Rieti». Proposta: «…studia in provincia».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 9 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s9 deep" data-dur="13" tabindex="0" role="button" aria-label="Scena 9, rivedi animazione">
+          <div class="stage">
+            <img class="photo a-kb" style="--kb:13s" src="assets/frames/09-controllo-qualita.jpg" alt="Analista di laboratorio davanti a un cromatogramma">
+            <div class="shade b"></div>
+            <div class="chain">
+              <span class="a-up" style="--d:3s">Dato</span><span class="ar a-fade" style="--d:4.4s">→</span>
+              <span class="a-up" style="--d:4.6s">Diagnosi</span><span class="ar a-fade" style="--d:6.6s">→</span>
+              <span class="a-up" style="--d:6.8s">Obiettivi</span><span class="ar a-fade" style="--d:9.4s">→</span>
+              <span class="a-up" style="--d:9.6s">Indicatori</span>
+            </div>
+          </div>
+          <span class="tc">Sc. 9 · 1:46 – 1:59</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 09 · Dal dato all'azione <span class="chip g">Immagine AI</span> <span class="chip">Testo proposto</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Proposta: catena DATO → DIAGNOSI → OBIETTIVI → INDICATORI, una parola alla volta con la voce.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Dal dato, però, si può passare all'azione. Il dato infatti offre la diagnosi. In base alla diagnosi si fissano obiettivi. Gli obiettivi si traducono in indicatori.</dd></div>
+            <div><dt>Prompt</dt><dd class="prompt">Laboratorio di controllo qualità di uno stabilimento farmaceutico: un'analista in camice davanti a un HPLC studia un cromatogramma a monitor, fiale in un rack accanto. Luce calda sul volto, fondo sfocato viola. Movimento: push-in lento sul monitor. Diverso dalla scena 6 ma nello stesso mondo.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 10 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s10" data-dur="19" tabindex="0" role="button" aria-label="Scena 10, rivedi animazione">
+          <div class="stage">
+            <div>
+              <p class="k a-up" style="--d:.2s">Esempio · Azione 1.1</p>
+            </div>
+            <div class="blocks">
+              <div class="blk a-up" style="--d:1.6s"><span class="tag">Dato</span><p class="v">Zero percorsi in chimica e farmaceutica a Rieti</p><p class="s">Mancano le competenze che il comparto cerca</p></div>
+              <svg class="arrow a-fade" style="--d:5s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
+              <div class="blk a-up" style="--d:5.4s"><span class="tag">Obiettivo</span><p class="v">Percorso ITS in produzione e controllo qualità farmaceutico</p><p class="s">Dalla programmazione 2027</p></div>
+              <svg class="arrow a-fade" style="--d:12.4s" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M26 4l8 8-8 8" fill="none" stroke="#B9FF69" stroke-width="2.5"/></svg>
+              <div class="blk a-up" style="--d:12.8s"><span class="tag">Indicatore</span><p class="v">Numero di partecipanti</p><p class="s">Per genere e settore di competenze, STEM incluse</p></div>
+            </div>
+          </div>
+          <span class="tc">Sc. 10 · 1:59 – 2:18</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 10 · Dal dato all'azione: un esempio <span class="chip">Motion graphic</span> <span class="chip g">Testo in revisione</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Tre blocchi in sequenza: Dato · Obiettivo · Indicatore, con i testi dell'azione 1.1 del minisito.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Facciamo un esempio. Se i dati evidenziano un problema di competenze in ambito chimico e farmaceutico, si può fissare come obiettivo un percorso ITS in produzione e controllo qualità farmaceutico. L'indicatore di performance può essere il numero di partecipanti al corso.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Ogni blocco entra quando la voce lo nomina; le frecce Lime legano la sequenza. Bordi sottili bianchi, spigolo vivo.</dd></div>
+            <div><dt>Nota</dt><dd class="note">In sceneggiatura la voce è ancora in rosso (in revisione). Qui ho corretto «fisscare come» in «fissare come obiettivo un». L'indicatore segue il minisito: «per genere e per settore di competenze (comprese le STEM)», non «competenze scientifiche».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 11 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s11" data-dur="22" tabindex="0" role="button" aria-label="Scena 11, rivedi animazione">
+          <div class="stage">
+            <div class="intro a-out" style="--d:7.2s">
+              <p class="num a-up" style="--d:.4s"><em>3</em> priorità</p>
+              <p class="num a-up" style="--d:1.6s"><em>8</em> azioni</p>
+            </div>
+            <div class="head a-fade" style="--d:7.6s"><p class="k">3 priorità · 8 azioni</p></div>
+            <div class="cards">
+              <div class="card a-in" style="--d:7.8s">
+                <p class="pk">Priorità 1</p>
+                <h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4>
+                <ol><li><b>1.1</b>Percorso ITS in produzione e controllo qualità farmaceutico</li><li><b>1.2</b>Corso di laurea in tecnologie chimico-farmaceutiche</li><li><b>1.3</b>Tirocini retribuiti e percorsi di rientro</li></ol>
+              </div>
+              <div class="card a-in" style="--d:12.6s">
+                <p class="pk">Priorità 2</p>
+                <h4>Rafforzare le reti di imprese e fornitori</h4>
+                <ol><li><b>2.1</b>Mappatura di profili e fornitori</li><li><b>2.2</b>Rete dei produttori della Pump Valley</li><li><b>2.3</b>Efficienza energetica sui siti produttivi</li></ol>
+              </div>
+              <div class="card a-in" style="--d:16.8s">
+                <p class="pk">Priorità 3</p>
+                <h4>Diversificare a partire dalle competenze esistenti</h4>
+                <ol><li><b>3.1</b>Individuazione delle filiere affini</li><li><b>3.2</b>Progetti pilota di diversificazione</li></ol>
+              </div>
+            </div>
+          </div>
+          <span class="tc">Sc. 11 · 2:18 – 2:30</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 11 · Tre priorità, otto azioni <span class="chip">Motion graphic</span> <span class="chip w">Durata da rivedere</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>«3 priorità · 8 azioni», poi le tre card del minisito ridisegnate, una per volta, affiancate.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Con questa logica lo studio ha identificato tre priorità, articolate in otto azioni, ciascuna con obiettivi misurabili collegati alle linee di intervento finanziario. Priorità 1. Formazione tecnica e universitaria per il comparto chimico e farmaceutico. Priorità 2. Rafforzamento delle reti di imprese e di fornitori. Priorità 3. Diversificazione delle attività a partire dalle competenze esistenti.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Ogni card entra da destra quando la voce dice «Priorità 1, 2, 3» e resta in campo: alla fine sono tutte e tre affiancate, pronte per la scena 12.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Le quattro battute sommano circa 55 parole su 12 secondi: servono circa <mark>22 secondi</mark>. L'animazione qui è già tarata su 22.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 12 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s12" data-dur="14" tabindex="0" role="button" aria-label="Scena 12, rivedi animazione">
+          <div class="stage">
+            <div class="goal a-down" style="--d:.6s">
+              <span class="pk">Obiettivo</span>
+              <p>Trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e in un'economia più diversificata e resiliente.</p>
+            </div>
+            <div class="cards">
+              <div class="card"><p class="pk">Priorità 1</p><h4>Formazione tecnica e universitaria per il comparto chimico-farmaceutico</h4></div>
+              <div class="card"><p class="pk">Priorità 2</p><h4>Rafforzare le reti di imprese e fornitori</h4></div>
+              <div class="card"><p class="pk">Priorità 3</p><h4>Diversificare a partire dalle competenze esistenti</h4></div>
+            </div>
+          </div>
+          <span class="tc">Sc. 12 · 2:30 – 2:44</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 12 · L'obiettivo <span class="chip">Proposta visual</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>La barra dell'obiettivo scende sopra le tre card, che si attenuano: la struttura «un obiettivo, tre priorità» si legge in un colpo d'occhio.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Tutto ispirato ad un unico obiettivo: trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e sostenere un'economia più diversificata e resiliente.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">In sceneggiatura c'era «Ale valuta tu». Ho seguito la nota del PPTX: «la barra dell'obiettivo compare nella scena successiva». La barra è Lime con testo nero, l'unico Lime pieno del video: è il punto d'arrivo.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 13 ────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s13" data-dur="6" tabindex="0" role="button" aria-label="Chiusura, rivedi animazione">
+          <div class="stage">
+            <img class="a-fade" style="--d:.3s" src="assets/logo-white.svg" alt="OpenEconomics">
+            <div>
+              <p class="k a-up" style="--d:1s;margin-bottom:1.4cqw">Analisi territoriale · Provincia di Rieti</p>
+              <p class="hl a-up" style="--d:1.4s">Dal dato agli obiettivi della programmazione 2028–2034</p>
+            </div>
+          </div>
+          <span class="tc">Chiusura · 2:44 – 2:50</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
+        </div>
+        <div class="info">
+          <p class="idx">Chiusura <span class="chip">Proposta</span></p>
+          <dl>
+            <div><dt>On-screen</dt><dd>Logo OpenEconomics bianco su Bluette, titolo dello studio, una riga di sintesi.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">Nessuno: musica in chiusura.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Non è in sceneggiatura. L'ho aggiunta per coerenza con il video Audiovisivo, che chiude con la card di marca. Se il video vive dentro il minisito si può togliere.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<section class="review" aria-labelledby="rev-h">
+  <div class="wrap">
+    <h2 id="rev-h">Revisione della sceneggiatura</h2>
+    <p class="lead">Cosa ho trovato confrontando la v2 con i dati del minisito, e il ritmo della voce scena per scena.</p>
+    <div class="cols">
+      <div>
+        <h3 class="sec-h">Ritmo del voiceover</h3>
+        <table>
+          <thead><tr><th>Scena</th><th class="n">Secondi</th><th class="n">Parole</th><th class="n">Parole/s</th><th class="n">Servono</th></tr></thead>
+          <tbody>
+            <tr><td>1 · Il cambio di regole</td><td class="n">11</td><td class="n">30</td><td class="n">2,7</td><td class="n">12–13 s</td></tr>
+            <tr><td>2 · L'opportunità dei dati</td><td class="n">9</td><td class="n">20</td><td class="n">2,2</td><td class="n">ok</td></tr>
+            <tr><td>3 · Il territorio</td><td class="n">7</td><td class="n">14</td><td class="n">2,0</td><td class="n">ok</td></tr>
+            <tr><td>4 · Spopolamento e pendolarismo</td><td class="n">14</td><td class="n">18</td><td class="n">1,3</td><td class="n">margine</td></tr>
+            <tr><td>5 · Il paradosso dell'export</td><td class="n">15</td><td class="n">25</td><td class="n">1,7</td><td class="n">ok</td></tr>
+            <tr><td>6 · L'export non basta</td><td class="n">17</td><td class="n">40</td><td class="n">2,4</td><td class="n">ok</td></tr>
+            <tr><td>7 · Le competenze che mancano</td><td class="n">20</td><td class="n">30</td><td class="n">1,5</td><td class="n">margine</td></tr>
+            <tr><td>8 · Percorsi di formazione</td><td class="n">13</td><td class="n">23</td><td class="n">1,8</td><td class="n">ok</td></tr>
+            <tr><td>9 · Dal dato all'azione</td><td class="n">13</td><td class="n">27</td><td class="n">2,1</td><td class="n">ok</td></tr>
+            <tr><td>10 · Un esempio</td><td class="n">19</td><td class="n">40</td><td class="n">2,1</td><td class="n">ok</td></tr>
+            <tr class="warn"><td>11 · Tre priorità, otto azioni</td><td class="n">12</td><td class="n">55</td><td class="n">4,6</td><td class="n">circa 22 s</td></tr>
+            <tr><td>12 · L'obiettivo</td><td class="n">14</td><td class="n">26</td><td class="n">1,9</td><td class="n">ok</td></tr>
+          </tbody>
+        </table>
+        <p class="tbl-note">Riferimento: 2,4 parole al secondo, ritmo di una voce istituzionale in italiano. La scena 11 chiede 10 secondi in più: si possono recuperare togliendone 4 alla scena 4 e 5 alla 7, che hanno margine, e il totale resta vicino a 2:45. Altrimenti il video arriva a circa 2:55.</p>
+      </div>
+      <div>
+        <h3 class="sec-h">Correzioni al testo</h3>
+        <ul class="fix">
+          <li><span class="w">Scena 1 · refuso</span>i fondi europei <del>cambianeranno</del> <ins>cambieranno</ins> logica</li>
+          <li><span class="w">Scena 5 · etichetta</span>«9,1% incidenza farmaceutica su export <del>Lazio</del>» → <ins>Italia</ins></li>
+          <li><span class="w">Scena 6 · territorio</span>il rischio economico <del>della regione</del> → <ins>della provincia</ins></li>
+          <li><span class="w">Scena 6 · sintassi</span>il valore aggiunto per abitante <del>resta il ventisette per cento, sotto la media italiana</del> → <ins>è inferiore del ventisette per cento alla media italiana</ins>; <del>procapite</del> → <ins>pro capite</ins></li>
+          <li><span class="w">Scena 8 · dato</span>solo il dodici per cento degli universitari reatini studia <del>a Rieti</del> → <ins>in provincia</ins></li>
+          <li><span class="w">Scena 10 · refuso</span>si può <del>fisscare come</del> <ins>fissare come obiettivo un</ins> percorso ITS…</li>
+          <li><span class="w">Scena 4 · ordine</span>la voce cita il pendolarismo prima dello spopolamento, le mappe entrano al contrario: vedi proposta sotto la scena.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Note di lettura</h2>
+    <ul>
+      <li>Questa pagina è uno <strong>storyboard</strong>: i frame mostrano composizione, testi e tempi d'entrata. Non ci sono ancora clip video né voce.</li>
+      <li><strong>Mappe, sagome, grafico e contatori</strong> sono disegnati con i dati dell'analisi territoriale: confini ISTAT al 1° gennaio 2025 e 73 comuni (Mappe 1 e 2), Excelsior 2025 (Grafico 4), Camera di Commercio e Farmindustria (quote di export), valore aggiunto provinciale 2024. Sagome di Lazio e Italia: confini regionali ISTAT via openpolis.</li>
+      <li><strong>Foto della scena 2:</strong> «Veduta di Rieti», autore Vounce, <a href="https://commons.wikimedia.org/wiki/File:Veduta_di_Rieti.jpg">Wikimedia Commons</a>, licenza CC BY-SA 4.0. Va accreditata nei titoli o nella descrizione del video.</li>
+      <li><strong>Immagini delle scene 6, 8 e 9:</strong> generate con AI (Magnific), da usare come fotogramma iniziale dei clip. Le varianti scartate sono in <code>assets/frames/alternative/</code>.</li>
+      <li>Numeri a schermo in <strong>formato italiano</strong> (149.766 · 9,1%).</li>
+      <li>Il «verificare con Fede» della scena 5 resta aperto: va confermato il confronto tra basi diverse (export totale 2025 contro export manifatturiero 2024).</li>
+    </ul>
+    <p class="fine">OpenEconomics · Bluette #4400B3 · Lime #B9FF69 · Hedvig Letters Serif + Atkinson Hyperlegible</p>
+  </div>
+</footer>
+
+<script src="assets/data/shapes.js"></script>
+<script>
+(function(){
+  'use strict';
+  var S = window.SHAPES, NS = 'http://www.w3.org/2000/svg';
+  var fmt = function(v, dec){ return new Intl.NumberFormat('it-IT',{minimumFractionDigits:dec||0,maximumFractionDigits:dec||0,useGrouping:'always'}).format(v); };
+  function el(tag, attrs, parent){
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  var css = function(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); };
+
+  /* ── Scena 3: confine che si disegna + 73 comuni ── */
+  (function(){
+    var svg = document.getElementById('s3map');
+    var p = el('path', {d:S.mapProv, fill:'none', stroke:css('--lime-400'), 'stroke-width':2, class:'a-draw'}, svg);
+    var len = Math.ceil(p.getTotalLength ? p.getTotalLength() : 3000);
+    p.style.setProperty('--len', len); p.style.strokeDasharray = len; p.style.setProperty('--d','.2s');
+    S.muni.forEach(function(m, i){
+      var c = el('circle', {cx:m[1], cy:m[2], r:5, fill:css('--white'), class:'a-pop'}, svg);
+      c.style.setProperty('--d', (0.4 + i * 1.6 / 73).toFixed(2) + 's');
+    });
+  })();
+
+  /* ── Scena 4: le due mappe, stessa scala dei cerchi ── */
+  function popColor(v){ if (v <= -5) return css('--magenta-700'); if (v < -1) return css('--magenta-400'); if (v <= 1) return css('--gray-300'); if (v < 4) return css('--lime-500'); return css('--lime-700'); }
+  function romeColor(v){ return v < 10 ? css('--bluette-050') : v < 20 ? css('--bluette-200') : v < 30 ? css('--bluette-400') : v < 45 ? css('--bluette-600') : css('--bluette-900'); }
+  var rOf = function(pop){ return Math.max(3, Math.sqrt(pop) / 7); };
+  function drawMap(id, colorOf, start){
+    var svg = document.getElementById(id);
+    el('path', {d:S.mapCom, fill:css('--gray-100'), stroke:css('--white'), 'stroke-width':1}, svg);
+    el('path', {d:S.mapProv, fill:'none', stroke:css('--gray-400'), 'stroke-width':1.2}, svg);
+    var order = S.muni.slice().sort(function(a,b){ return b[3] - a[3]; });
+    order.forEach(function(m, i){
+      var c = el('circle', {cx:m[1], cy:m[2], r:rOf(m[3]).toFixed(1), fill:colorOf(m), stroke:css('--white'), 'stroke-width':1, class:'a-pop'}, svg);
+      c.style.setProperty('--d', (start + 0.3 + i * 1.4 / 73).toFixed(2) + 's');
+    });
+    // etichette fuori dai cerchi, con alone bianco
+    [['Rieti', 1], ['Fara in Sabina', -1]].forEach(function(l){
+      var m = S.muni.filter(function(x){ return x[0] === l[0]; })[0];
+      var r = rOf(m[3]), x = m[1] + l[1] * (r + 7);
+      var t = el('text', {x:x, y:m[2] + 6, 'text-anchor': l[1] > 0 ? 'start' : 'end', 'font-family':css('--sans'), 'font-weight':700, 'font-size':17, fill:css('--black'), stroke:css('--white'), 'stroke-width':4, 'paint-order':'stroke', class:'a-fade'}, svg);
+      t.style.setProperty('--d', (start + 1.9) + 's');
+      t.textContent = l[0];
+    });
+  }
+  drawMap('mapPop', function(m){ return popColor(m[4]); }, 0.2);
+  drawMap('mapRome', function(m){ return romeColor(m[5]); }, 5.2);
+
+  /* ── Scena 5: sagome riempite in proporzione all'area ── */
+  function levelForShare(d, share){
+    // campiona la sagoma riga per riga e trova la quota a cui l'area sottostante vale "share"
+    var cv = document.createElement('canvas'), ctx = cv.getContext('2d'), path = new Path2D(d);
+    var rows = [], total = 0, x, y;
+    for (y = 0; y <= 500; y += 2){
+      var n = 0;
+      for (x = 0; x <= 400; x += 2) if (ctx.isPointInPath(path, x, y)) n++;
+      rows.push([y, n]); total += n;
+    }
+    var acc = 0;
+    for (var i = rows.length - 1; i >= 0; i--){ acc += rows[i][1]; if (acc >= total * share) return rows[i][0]; }
+    return 0;
+  }
+  function silhouette(id, d, share, inner, delay){
+    var svg = document.getElementById(id), uid = id + 'clip';
+    var defs = el('defs', {}, svg), cp = el('clipPath', {id:uid}, defs);
+    el('path', {d:d}, cp);
+    el('path', {d:d, fill:css('--bluette-800')}, svg);
+    var level = levelForShare(d, share);
+    var r = el('rect', {x:0, y:level, width:400, height:500 - level, fill:css('--lime-400'), 'clip-path':'url(#'+uid+')', class:'a-growY'}, svg);
+    r.style.setProperty('--d', delay + 's');
+    if (inner) el('path', {d:inner, fill:'none', stroke:css('--white'), 'stroke-width':1.4, 'stroke-opacity':.85}, svg);
+  }
+  silhouette('silR', S.rieti, 0.801, null, 1);
+  silhouette('silL', S.lazio, 0.48, S.rietiInLazio, 5);
+  silhouette('silI', S.italy, 0.091, S.lazioInItaly, 7);
+
+  /* ── Scena 7: grafico Excelsior ── */
+  (function(){
+    var svg = document.getElementById('s7chart');
+    var rows = [
+      ['Specialisti in scienze matematiche, chimiche, fisiche e naturali', 98.2, 0],
+      ['Laureati in chimica e farmaceutica', 84.2, 0],
+      ['Tecnici dei processi produttivi', 65.2, 0],
+      ['Operai della meccanica di precisione', 84.7, 1],
+      ['Meccanici, montatori e manutentori', 75.6, 1],
+      ['Diplomati in meccanica, meccatronica ed energia', 68.3, 1],
+      ['Diplomati in elettronica ed elettrotecnica', 64.2, 1],
+      ['Tecnici della salute', 63.4, 2],
+      ['Ingegneri', 52.6, 2],
+      ['Tecnici in campo ingegneristico', 34.0, 2]
+    ];
+    var labelW = 800, plotW = 660, rowH = 46, barH = 30, y0 = 6, lit = [6.2, 7.6, 9.0];
+    rows.forEach(function(r, i){
+      var y = y0 + i * rowH + (r[2] > 0 ? 18 : 0) + (r[2] > 1 ? 18 : 0);
+      var t = el('text', {x:labelW - 22, y:y + barH/2 + 8, 'text-anchor':'end', 'font-family':css('--sans'), 'font-size':25, fill:css('--black')}, svg);
+      t.textContent = r[0];
+      var w = r[1] / 100 * plotW;
+      var g = el('rect', {x:labelW, y:y, width:w, height:barH, fill:css('--gray-300'), class:'a-growX'}, svg);
+      g.style.setProperty('--d', '1s');
+      var v = el('text', {x:labelW + w + 14, y:y + barH/2 + 8, 'font-family':css('--mono'), 'font-weight':600, 'font-size':25, fill:css('--gray-600'), class:'a-fade'}, svg);
+      v.style.setProperty('--d', '1.8s'); v.textContent = fmt(r[1]) + '%';
+      if (r[2] === 0){
+        var h = el('rect', {x:labelW, y:y, width:w, height:barH, fill:css('--bluette-700'), class:'a-fade'}, svg);
+        h.style.setProperty('--d', lit[i] + 's');
+        var hv = el('text', {x:labelW + w + 14, y:y + barH/2 + 8, 'font-family':css('--mono'), 'font-weight':700, 'font-size':25, fill:css('--bluette-700'), class:'a-fade'}, svg);
+        hv.style.setProperty('--d', lit[i] + 's'); hv.textContent = fmt(r[1]) + '%';
+        t.setAttribute('font-weight', 700);
+      }
+    });
+  })();
+
+  /* ── Riproduzione ── */
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.frame'));
+  var animOn = true, timers = new Map();
+
+  function runCounters(f){
+    f.querySelectorAll('.count').forEach(function(c){
+      var to = parseFloat(c.dataset.to), dec = parseInt(c.dataset.dec || 0, 10);
+      var d = parseFloat(c.dataset.d || 0) * 1000, t = parseFloat(c.dataset.t || 1) * 1000;
+      c.textContent = fmt(0, dec);
+      var start = performance.now() + d;
+      (function step(now){
+        if (!f.classList.contains('play')) { c.textContent = fmt(to, dec); return; }
+        var k = Math.min(1, Math.max(0, (now - start) / t));
+        k = 1 - Math.pow(1 - k, 3);
+        c.textContent = fmt(to * k, dec);
+        if (k < 1) requestAnimationFrame(step);
+      })(performance.now());
+    });
+  }
+  function settle(f){
+    // stato finale statico: elementi che a fine scena spariscono o si attenuano
+    f.querySelectorAll('.a-out').forEach(function(n){ n.classList.add('is-out'); });
+    f.querySelectorAll('.a-dim').forEach(function(n){ n.classList.add('is-dim'); });
+  }
+  function play(f){
+    clearTimeout(timers.get(f));
+    f.classList.remove('play');
+    f.querySelectorAll('.is-out,.is-dim').forEach(function(n){ n.classList.remove('is-out','is-dim'); });
+    void f.offsetWidth;
+    f.classList.add('play');
+    runCounters(f);
+    var dur = (parseFloat(f.dataset.dur) || 10) * 1000;
+    timers.set(f, setTimeout(function(){ if (animOn && f.__visible) play(f); }, dur + 1800));
+  }
+  function stop(f){
+    clearTimeout(timers.get(f));
+    f.classList.remove('play');
+    settle(f);
+    f.querySelectorAll('.count').forEach(function(c){ c.textContent = fmt(parseFloat(c.dataset.to), parseInt(c.dataset.dec || 0, 10)); });
+  }
+  frames.forEach(settle);
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var f = e.target; f.__visible = e.isIntersecting;
+      if (e.isIntersecting && animOn) { if (!f.classList.contains('play')) play(f); }
+      else if (!e.isIntersecting) stop(f);
+    });
+  }, { threshold: 0.4 });
+  frames.forEach(function(f){
+    io.observe(f);
+    f.addEventListener('click', function(){ if (animOn) play(f); });
+    f.addEventListener('keydown', function(e){ if ((e.key === 'Enter' || e.key === ' ') && animOn){ e.preventDefault(); play(f); } });
+  });
+
+  document.getElementById('animToggle').addEventListener('change', function(e){
+    animOn = e.target.checked;
+    frames.forEach(function(f){ if (!animOn) stop(f); else if (f.__visible) play(f); });
+  });
+  document.getElementById('safeToggle').addEventListener('change', function(e){
+    document.getElementById('grid').classList.toggle('show-safe', e.target.checked);
+  });
+  document.getElementById('bigToggle').addEventListener('change', function(e){
+    document.getElementById('grid').classList.toggle('big', e.target.checked);
+  });
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.getElementById('animToggle').checked = false; animOn = false; frames.forEach(stop);
+  }
+})();
+</script>
+</body>
+</html>
