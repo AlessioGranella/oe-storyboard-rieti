@@ -62,6 +62,13 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 }
 .meta dd{font-size:15px;line-height:1.35}
 
+.hero{background:var(--black);padding:56px 0 64px}
+.hero .wrap{display:flex;flex-direction:column;gap:20px}
+.hero h2{font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--lime-400)}
+.hero video{width:100%;height:auto;display:block;border:1px solid rgba(255,255,255,.25)}
+.hero .caption{font-size:14px;color:rgba(255,255,255,.7);max-width:90ch}
+.hero .caption strong{color:rgba(255,255,255,.92)}
+
 /* ── Barra strumenti ──────────────────────────────────────────────────── */
 .toolbar{border-bottom:1px solid var(--gray-300);background:var(--white);position:sticky;top:0;z-index:10}
 .toolbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding-top:14px;padding-bottom:14px}
@@ -377,14 +384,22 @@ footer .fine{
     <p class="sub">Dalla sceneggiatura v2 del 12 ottobre 2026 ai frame, aggiornati con il feedback del 14 ottobre: sedici scene. Mappe, grafico, numeri e card sono costruiti con i dati dell'analisi territoriale (ISTAT, Camera di Commercio, Excelsior); le foto servono da base per i clip.</p>
     <dl class="meta">
       <div><dt>Durata in sceneggiatura v2</dt><dd>2:44</dd></div>
-      <div><dt>Durata stimata</dt><dd>circa 3:33</dd></div>
+      <div><dt>Durata montaggio</dt><dd>3:07</dd></div>
       <div><dt>Formato</dt><dd>Orizzontale 16:9</dd></div>
       <div><dt>Lingua</dt><dd>Italiano</dd></div>
-      <div><dt>Voiceover</dt><dd>Da scegliere</dd></div>
+      <div><dt>Voiceover</dt><dd>Corrado Santoro</dd></div>
       <div><dt>Tono</dt><dd>Istituzionale, data-driven</dd></div>
     </dl>
   </div>
 </header>
+
+<section class="hero">
+  <div class="wrap">
+    <h2>Video montato · prima versione</h2>
+    <video src="assets/final/OE_Video_Rieti_1080p.mp4" poster="assets/frames/hero.jpg" controls preload="none" aria-label="Video completo — analisi territoriale Rieti"></video>
+    <p class="caption">3:07 · 1920×1080 · 25 fps · voce maschile italiana (Corrado Santoro, ElevenLabs) e tappeto musicale con ducking sotto la voce · audio a <strong>−14 LUFS</strong>, picco −1,5 dBTP. Le sedici scene qui sotto sono i segmenti che lo compongono.</p>
+  </div>
+</section>
 
 <div class="toolbar">
   <div class="wrap">
