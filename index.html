@@ -165,6 +165,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 @keyframes growY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes draw{from{stroke-dashoffset:var(--len,3000)}to{stroke-dashoffset:0}}
 @keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes kbIn{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.24) translate(-2.5%,-1.5%)}}
 @keyframes kbL{from{transform:scale(1.06) translateX(1.5%)}to{transform:scale(1.06) translateX(-1.5%)}}
 @keyframes slideDown{from{opacity:0;transform:translateY(-3cqw)}to{opacity:1;transform:none}}
 @keyframes slideIn{from{opacity:0;transform:translateX(4cqw)}to{opacity:1;transform:none}}
@@ -178,6 +179,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .play .a-growY{animation:growY 1.4s var(--ease) var(--d,0s) both;transform-box:fill-box;transform-origin:center bottom}
 .play .a-draw{animation:draw 2.2s ease-in-out var(--d,0s) both}
 .play .a-kb{animation:kb var(--kb,10s) linear 0s both}
+.play .a-kbIn{animation:kbIn var(--kb,10s) cubic-bezier(.3,0,.5,1) 0s both;transform-origin:55% 45%}
 .play .a-kbL{animation:kbL var(--kb,10s) linear 0s both}
 .play .a-down{animation:slideDown .8s var(--ease) var(--d,0s) both}
 .play .a-in{animation:slideIn .7s var(--ease) var(--d,0s) both}
@@ -251,10 +253,10 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 .cards{position:absolute;left:5cqw;right:5cqw;top:9cqw;bottom:9.4cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;align-items:stretch}
 .pcol{display:flex;flex-direction:column;gap:1.4cqw}
 .pcol .card{flex:1}
-.ind{border-top:2px solid var(--lime-400);padding-top:1cqw;display:flex;flex-direction:column;gap:.6cqw;height:5.4cqw;flex:none}
-.ind .pk{font-family:var(--mono);font-size:1.2cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
+.ind{border-top:2px solid var(--lime-400);padding-top:1.1cqw;display:flex;flex-direction:column;gap:.7cqw;height:7cqw;flex:none}
+.ind .pk{font-family:var(--mono);font-size:1.45cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-400)}
 .ind ul{list-style:none;display:flex;flex-direction:column;gap:.4cqw}
-.ind li{font-size:1.2cqw;line-height:1.3;color:var(--white)}
+.ind li{font-size:1.9cqw;line-height:1.25;color:var(--white)}
 .card{background:var(--white);color:var(--black);padding:1.8cqw 2cqw 2cqw;display:flex;flex-direction:column;gap:1cqw}
 .card .pk{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--bluette-700);font-weight:600}
 .card h4{font-family:var(--serif);font-weight:400;font-size:1.75cqw;line-height:1.14;padding-bottom:1.3cqw;border-bottom:1px solid var(--gray-200)}
@@ -418,13 +420,13 @@ footer .fine{
 
       <!-- 1 ─────────────────────────────────────────────────────────── -->
       <article class="beat">
-        <div class="frame s1" data-dur="11" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
+        <div class="frame s1" data-dur="12.9" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
           <div class="stage">
             <span class="big a-fade" style="--d:.2s" aria-hidden="true">28–34</span>
             <div class="tblock">
-              <p class="k a-up" style="--d:.3s">Programmazione europea 2028–2034</p>
-              <p class="hl line1 a-up" style="--d:.9s">Dalla rendicontazione dei costi</p>
-              <p class="hl line2 a-up" style="--d:4.2s">alla misurazione degli obiettivi raggiunti</p>
+              <p class="k a-up" style="--d:.35s">Programmazione europea 2028–2034</p>
+              <p class="hl line1 a-up" style="--d:3.65s">Dalla rendicontazione dei costi</p>
+              <p class="hl line2 a-up" style="--d:8.9s">alla misurazione degli obiettivi raggiunti</p>
             </div>
           </div>
           <img class="anci" src="assets/logo-anci-white.png" alt="ANCI"><div class="foot"><img src="assets/logo-mark-white.svg" alt="OpenEconomics"></div><span class="tc">Sc. 1 · 0:00 – 0:11</span><span class="replay">↻ Rivedi</span><div class="safe"></div>
@@ -434,7 +436,7 @@ footer .fine{
           <dl>
             <div><dt>On-screen</dt><dd>Logo ANCI in alto a destra (solo in questa scena) · Programmazione europea 2028–2034 · «Dalla rendicontazione dei costi» → «alla misurazione degli obiettivi raggiunti» · testo centrato in verticale</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Dal 2028 i fondi europei cambieranno logica. La proposta della Commissione europea prevede il passaggio da un sistema basato sui progetti a un modello orientato ai risultati e alla performance.</dd></div>
-            <div><dt>Regia</dt><dd class="prompt">Fondo Bluette pieno. Il pretitolo entra su «dal 2028»; la prima riga sale subito, la seconda arriva su «modello orientato ai risultati». «28–34» in filigrana, quasi invisibile, dà profondità senza diventare un elemento.</dd></div>
+            <div><dt>Regia</dt><dd class="prompt">Fondo Bluette pieno. Testi agganciati alla voce: il pretitolo entra su «Dal duemilaventotto» (0,35 s), la prima riga su «La proposta della Commissione» (3,65 s), la seconda su «a un modello orientato» (8,9 s). «28–34» in filigrana, quasi invisibile, dà profondità senza diventare un elemento.</dd></div>
           </dl>
         </div>
       </article>
@@ -767,7 +769,7 @@ footer .fine{
       <article class="beat">
         <div class="frame s14 deep" data-dur="14" tabindex="0" role="button" aria-label="Scena 14, rivedi animazione">
           <div class="stage">
-            <img class="photo a-kb" style="--kb:14s" src="assets/frames/14-rieti-ponte.jpg" alt="Il ponte sul Velino nel centro di Rieti">
+            <img class="photo a-kbIn" style="--kb:14s" src="assets/frames/14-rieti-ponte.jpg" alt="Il ponte sul Velino nel centro di Rieti">
             <div class="shade"></div>
             <div class="tblock on-photo">
               <p class="k a-up" style="--d:.6s">Obiettivo</p>
@@ -781,7 +783,7 @@ footer .fine{
           <dl>
             <div><dt>On-screen</dt><dd>Obiettivo · «Trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e in un'economia più diversificata e resiliente.» Le tre card sono state tolte.</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Tutto questo, è ispirato ad un unico obiettivo: trasformare la specializzazione farmaceutica in lavoro qualificato per chi vive a Rieti e sostenere un'economia più diversificata e resiliente.</dd></div>
-            <div><dt>Visivo</dt><dd class="prompt">Il ponte sul Velino nel centro di Rieti (Adobe Stock 38337409), animato con un lento push-in. Stesso trattamento fotografico della scena 2: cielo e ombre verso il viola, facciate calde. L'obiettivo è scritto in Hedvig bianco in basso a sinistra, senza il riquadro Lime.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Il ponte sul Velino nel centro di Rieti (Adobe Stock 38337409), animato con uno zoom in marcato (dal 102% al 124%) e un leggero spostamento verso il ponte. Stesso trattamento fotografico della scena 2: cielo e ombre verso il viola, facciate calde. L'obiettivo è scritto in Hedvig bianco in basso a sinistra, senza il riquadro Lime.</dd></div>
             <div><dt>Nota</dt><dd class="note">Nella voce c'è una virgola di troppo: «Tutto questo<mark>,</mark> è ispirato». Proposta: «Tutto questo è ispirato a un unico obiettivo».</dd></div>
           </dl>
         </div>
